@@ -124,10 +124,10 @@ CREATE TABLE `rate` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_advertisement`
+-- Table structure for table `comment`
 --
 
-CREATE TABLE `user_advertisement` (
+CREATE TABLE `comment` (
   `userId` int(11) NOT NULL,
   `AdvertisementId` int(11) NOT NULL,
   `comment` varchar(250) DEFAULT NULL
