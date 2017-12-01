@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2017 at 07:38 PM
+-- Generation Time: Dec 01, 2017 at 08:31 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -86,6 +86,19 @@ CREATE TABLE `house` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `Id` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `Description` int(11) NOT NULL,
+  `AdvertismentId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `picture`
 --
 
@@ -124,10 +137,10 @@ CREATE TABLE `rate` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Table structure for table `user_advertisement`
 --
 
-CREATE TABLE `comment` (
+CREATE TABLE `user_advertisement` (
   `userId` int(11) NOT NULL,
   `AdvertisementId` int(11) NOT NULL,
   `comment` varchar(250) DEFAULT NULL
@@ -168,6 +181,13 @@ ALTER TABLE `advertisement`
 ALTER TABLE `house`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `PicId` (`PicId`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD KEY `userId` (`userId`),
+  ADD KEY `AdvertismentId` (`AdvertismentId`);
 
 --
 -- Indexes for table `picture`
@@ -252,6 +272,13 @@ ALTER TABLE `advertisement`
 --
 ALTER TABLE `house`
   ADD CONSTRAINT `house_ibfk_1` FOREIGN KEY (`PicId`) REFERENCES `picture` (`Id`);
+
+--
+-- Constraints for table `notification`
+--
+ALTER TABLE `notification`
+  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `*user` (`Id`),
+  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`AdvertismentId`) REFERENCES `advertisement` (`Id`);
 
 --
 -- Constraints for table `rate`
