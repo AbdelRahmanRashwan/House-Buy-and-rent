@@ -1,41 +1,55 @@
 package Entities;
 
 public class Advertisement {
+	private int id;
+	private House house;
+	private User user;
+	private String type;
+	private double rate;
+	
+	Advertisement(){
+		this.user = new User();
+		this.house = new House();
+	}
 
-    private House house;
-    private String type; // rent or sell
-    private double rate;
-    private int numOfRating;
+	public int getId() {
+		return id;
+	}
 
-    public House getHouse() {
-        return house;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setHouse(House house) {
-        this.house = house;
-    }
+	public House getHouse() {
+		return house;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setHouse(House house) {
+		this.house = house;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public double getRate() {
-        return rate;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setRate(double rate) {
-        this.rate = rate;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public int getNumOfRating() {
-        return numOfRating;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setNumOfRating(int numOfRating) {
-        this.numOfRating = numOfRating;
-    }
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+
 }

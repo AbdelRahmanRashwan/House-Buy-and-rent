@@ -1,88 +1,102 @@
 package Entities;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class House {
+	private int id;
+	private double size;
+	private String description;
+	private int floor;
+	private String status;
+	private String type;
+	private List<File> images;
+	private double longitude;
+	private double latitude;
+	private String area;
 
-    private double size;
-    private String description;
-    private int floor;
-    private String status; // finished, half finished, tashteb, m7arah, toob a7mar
-    private String type;
-    private File [] images;
-    private double longitude;
-    private double langitude;
-    private String area;
+	House() {
+		this.setImages(new ArrayList<File>());
+	}
 
-    public double getSize() {
-        return size;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setSize(double size) {
-        this.size = size;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public double getSize() {
+		return size;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setSize(double size) {
+		this.size = size;
+	}
 
-    public int getFloor() {
-        return floor;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public int getFloor() {
+		return floor;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public File[] getImages() {
-        return images;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setImages(File[] images) {
-        this.images = images;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public double getLongitude() {
-        return longitude;
-    }
+	public List<File> getImages() {
+		return images;
+	}
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+	public void setImages(List<File> images) {
+		this.images = images;
+	}
 
-    public double getLangitude() {
-        return langitude;
-    }
+	public double getLongitude() {
+		return longitude;
+	}
 
-    public void setLangitude(double langitude) {
-        this.langitude = langitude;
-    }
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
-    public String getArea() {
-        return area;
-    }
+	public double getLatitude() {
+		return latitude;
+	}
 
-    public void setArea(String area) {
-        this.area = area;
-    }
+	public void setLangitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 }

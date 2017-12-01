@@ -1,99 +1,94 @@
 package Entities;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
+	private int id;
+	private String name;
+	private String email;
+	private String phone;
+	private String address;
+	private String password;
+	private File picture;
+	private List<Preferences> preferences;
+	private List<Advertisement> advertisements;
 
-    private String name;
-    private String email;
-    private String phone;
-    private String address;
-    private String password;
-    private File picture;
-    //preferences
-    private double size;
-    private int floor;
-    private String type;
-    private String area;
-    private Advertisement[] advertisements;
+	User() {
+		this.setPreferences(new ArrayList<Preferences>());
+		this.setAdvertisements(new ArrayList<Advertisement>());
+	}
 
-    public String getName() {
-        return name;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public File getPicture() {
-        return picture;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPicture(File picture) {
-        this.picture = picture;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public double getSize() {
-        return size;
-    }
+	public File getPicture() {
+		return picture;
+	}
 
-    public void setSize(double size) {
-        this.size = size;
-    }
+	public void setPicture(File picture) {
+		this.picture = picture;
+	}
 
-    public int getFloor() {
-        return floor;
-    }
+	public List<Preferences> getPreferences() {
+		return preferences;
+	}
 
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
+	public void setPreferences(List<Preferences> preferences) {
+		this.preferences = preferences;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public List<Advertisement> getAdvertisements() {
+		return advertisements;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
+	public void setAdvertisements(List<Advertisement> advertisements) {
+		this.advertisements = advertisements;
+	}
 }
