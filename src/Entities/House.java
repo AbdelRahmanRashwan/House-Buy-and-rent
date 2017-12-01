@@ -1,3 +1,5 @@
+package Entities;
+
 import java.io.File;
 
 public class House {
