@@ -1,5 +1,6 @@
 package User;
 
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 @WebServlet("/LogIn")
