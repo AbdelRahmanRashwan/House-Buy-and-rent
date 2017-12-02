@@ -12,11 +12,10 @@ public class User {
 	private String address;
 	private String password;
 	private File picture;
-	private List<Preferences> preferences;
+	private Preferences preferences;
 	private List<Advertisement> advertisements;
 
-	User() {
-		this.setPreferences(new ArrayList<Preferences>());
+	public User() {
 		this.setAdvertisements(new ArrayList<Advertisement>());
 	}
 
@@ -76,11 +75,11 @@ public class User {
 		this.picture = picture;
 	}
 
-	public List<Preferences> getPreferences() {
+	public Preferences getPreferences() {
 		return preferences;
 	}
 
-	public void setPreferences(List<Preferences> preferences) {
+	public void setPreferences(Preferences preferences) {
 		this.preferences = preferences;
 	}
 
