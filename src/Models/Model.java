@@ -10,7 +10,7 @@ public abstract class Model<Entity> {
 		conn = DBConnection.getConn();
 	}
 
-	abstract Entity select(String id);
+	abstract Entity select(int id);
 
 	abstract List<Entity> selectAll();
 
@@ -18,7 +18,7 @@ public abstract class Model<Entity> {
 
 	abstract boolean update(Entity entity);
 
-	abstract boolean delete(String id);
+	abstract boolean delete(int id);
 
 	abstract boolean insert(Entity entity);
 }
