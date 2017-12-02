@@ -66,7 +66,7 @@ public class UserModel extends Model<User> {
             return users;
 
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB selectAll (AdvertisementModel)");
+            System.out.println("Error connecting to DB selectAll (UserModel)");
             e.printStackTrace();
         }
         return null;
@@ -158,7 +158,7 @@ public class UserModel extends Model<User> {
             p.setInt(7,user.getPreferences().getId());
             return p.executeUpdate()>0;
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB insert(AdvertisementModel)");
+            System.out.println("Error connecting to DB insert(UserModel)");
             e.printStackTrace();
         }		return false;
 	}
