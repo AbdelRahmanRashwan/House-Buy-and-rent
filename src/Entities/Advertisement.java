@@ -5,9 +5,10 @@ public class Advertisement {
 	private House house;
 	private User user;
 	private String type;
+	private boolean isSuspended;
 	private double rate;
-	
-	Advertisement(){
+
+	public Advertisement(){
 		this.user = new User();
 		this.house = new House();
 	}
@@ -42,6 +43,14 @@ public class Advertisement {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public boolean isSuspended() {
+		return isSuspended;
+	}
+
+	public void setSuspended(boolean suspended) {
+		isSuspended = suspended;
 	}
 
 	public double getRate() {
