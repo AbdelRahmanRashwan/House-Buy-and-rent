@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2017 at 08:31 AM
+-- Generation Time: Dec 05, 2017 at 04:25 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `*user` (
-  `Name` varchar(150) NOT NULL,
   `Id` int(11) NOT NULL,
+  `Name` varchar(150) NOT NULL,
   `Email` varchar(150) NOT NULL,
   `Phone` varchar(12) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE `user_advertisement` (
 --
 ALTER TABLE `*user`
   ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `Name` (`Name`),
+  ADD UNIQUE KEY `Email` (`Email`),
   ADD KEY `PrefrencesId` (`PrefrencesId`),
   ADD KEY `picId` (`picPath`);
 
