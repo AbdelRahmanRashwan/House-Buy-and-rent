@@ -12,12 +12,11 @@ import Entities.User;
 
 public class UserModel extends Model<User> {
 
-	public User select(String name) {
-
+	public User selectByEmail(String email) {
         Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Name=?;");
-            p.setString(1,name);
+            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Email=?;");
+            p.setString(1,email);
             ResultSet res = p.executeQuery();
             if(!res.next()){
                 System.out.println("No Records Found");
@@ -32,16 +31,25 @@ public class UserModel extends Model<User> {
         return null;
 	}
 
-	public int getUserByMail(String mail){
+    public User selectByEmailAndPassword(String email,String password) {
 
-	    //TODO return the index of the user in database if not exist return -1
-        return -1;
-    }
+        Connection c =DBConnection.getConn();
+        try {
+            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Email=? AND  password=?;");
+            p.setString(1,email);
+            p.setString(2,password);
+            ResultSet res = p.executeQuery();
+            if(!res.next()){
+                System.out.println("No Records Found");
+                return null;
+            }
+            return parse(res);
 
-    public User selectByEmailAndPassword(String email, String password){
-
-	    //TODO return the user
-        return new User();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to DB select (UserModel)");
+            e.printStackTrace();
+        }
+        return null;
     }
 
 	@Override
@@ -143,11 +151,11 @@ public class UserModel extends Model<User> {
         return false;
 	}
 
-    public boolean delete(String name) {
+    public boolean delete(String email) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("DELETE FROM user WHERE Name=?;");
-            p.setString(1,name);
+            PreparedStatement p = c.prepareStatement("DELETE FROM user WHERE Email=?;");
+            p.setString(1,email);
             return p.executeUpdate()>0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB delete(UserModel)");
