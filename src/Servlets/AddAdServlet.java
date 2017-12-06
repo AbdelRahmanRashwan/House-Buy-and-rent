@@ -41,9 +41,9 @@ public class    AddAdServlet extends HttpServlet {
         HttpSession current_session = request.getSession();
         UserModel userModel = new UserModel();
 
-        String user_name = current_session.getAttribute("name").toString();
+        int user_id= Integer.parseInt(current_session.getAttribute("id").toString());
         Advertisement ad = new Advertisement();
-        User user = userModel.select(user_name);
+        User user = userModel.select(user_id);
 
         House house = parseHouse(request);
         //house.setId(id); house_model.insert(house) should return the inserted house id
