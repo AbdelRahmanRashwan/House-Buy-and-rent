@@ -26,7 +26,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `*user`
 --
 
-CREATE TABLE `*user` (
+use house_rental;
+
+CREATE TABLE `user` (
   `Name` varchar(150) NOT NULL,
   `Id` int(11) NOT NULL,
   `Email` varchar(150) NOT NULL,
@@ -297,3 +299,8 @@ ALTER TABLE `user_advertisement`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+use house_rental;
+INSERT INTO picture VALUES(1,'/home/pictures','soso');
+INSERT INTO house VALUES (1,500,'Big and nice house with 2 rooms and one bathroom',1,'House',1,16.7,12.5,'active');

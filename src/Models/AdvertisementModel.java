@@ -14,7 +14,7 @@ import Entities.User;
 public class AdvertisementModel extends Model<Advertisement> {
 
 	@Override
-	Advertisement select(int id) {
+    public Advertisement select(int id) {
 		Connection c =DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE Id=?;");
@@ -34,10 +34,10 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	List<Advertisement> selectAll() {
+    public List<Advertisement> selectAll() {
         Connection c =DBConnection.getConn();
         try {
-            ResultSet res  =c.prepareStatement("SELECT * FROM advertisement;").executeQuery();
+             ResultSet res  =c.prepareStatement("SELECT * FROM advertisement;").executeQuery();
 
             ArrayList<Advertisement> ads=new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	List<Advertisement> selectWhere(List<String> columns, String where) {
+    public List<Advertisement> selectWhere(List<String> columns, String where) {
         Connection c =DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE ?;");
@@ -76,7 +76,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	boolean update(Advertisement advertisement) {
+    public boolean update(Advertisement advertisement) {
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("UPDATE advertisement SET houseId = ?, Type = ?, rate = ?,suspend = ? , adOwnerId = ? WHERE Id = ?;");
@@ -96,7 +96,7 @@ public class AdvertisementModel extends Model<Advertisement> {
     }
 
 	@Override
-	boolean delete(int id) {
+    public boolean delete(int id) {
 	    Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("DELETE FROM advertisement WHERE Id=?;");
@@ -110,7 +110,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	boolean insert(Advertisement advertisement) {
+    public boolean insert(Advertisement advertisement) {
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("INSERT into advertisement (houseId,Type,rate,suspend,adOwnerId) values (?,?,?,?,?);");
@@ -126,7 +126,7 @@ public class AdvertisementModel extends Model<Advertisement> {
         }		return false;
 	}
 
-	boolean comment(int adID,int userID,String comment){
+    public boolean comment(int adID,int userID,String comment){
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("INSERT into user_advertisement (userId,AdvertisementId,comment) values (?,?,?);");
@@ -141,7 +141,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	    return false;
     }
 
-    List<Comment> adComments(int adId){
+    public List<Comment> adComments(int adId){
         Connection c =DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("SELECT * FROM user_advertisement WHERE AdvertisementId=?;");
@@ -166,15 +166,15 @@ public class AdvertisementModel extends Model<Advertisement> {
 
         try {
             Advertisement ad = new Advertisement();
-            ad.setId(res.getInt(0));
+            ad.setId(res.getInt(1));
             HouseModel houseModel = new HouseModel();
-            House house = houseModel.select(res.getInt(1));
+            House house = houseModel.select(res.getInt(2));
             ad.setHouse(house);
-            ad.setType(res.getString(2));
-            ad.setRate(res.getFloat(3));
-            ad.setSuspended(res.getInt(4) > 0);
+            ad.setType(res.getString(3));
+            ad.setRate(res.getFloat(4));
+            ad.setSuspended(res.getInt(5) > 0);
             UserModel userModel = new UserModel();
-            User user=userModel.select(res.getInt(5));
+            User user=userModel.select(res.getInt(6));
             ad.setUser(user);
             return ad;
         } catch (SQLException e) {

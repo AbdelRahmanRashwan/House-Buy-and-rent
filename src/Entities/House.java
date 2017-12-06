@@ -16,7 +16,7 @@ public class House {
 	private double latitude;
 	private String area;
 
-	House() {
+	public House() {
 		this.setImages(new ArrayList<File>());
 	}
 
@@ -88,7 +88,7 @@ public class House {
 		return latitude;
 	}
 
-	public void setLangitude(double latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 

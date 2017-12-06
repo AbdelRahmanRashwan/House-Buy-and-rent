@@ -7,37 +7,37 @@ import Entities.Admin;
 public class AdminModel extends Model<Admin> {
 
 	@Override
-	Admin select(String id) {
+	public Admin select(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	List<Admin> selectAll() {
+	public List<Admin> selectAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	List<Admin> selectWhere(List<String> columns, String where) {
+	public List<Admin> selectWhere(List<String> columns, String where) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	boolean update(Admin admin) {
+	public boolean update(Admin admin) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	boolean delete(String id) {
+	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	boolean insert(Admin admin) {
+	public boolean insert(Admin admin) {
 		// TODO Auto-generated method stub
 		return false;
 	}

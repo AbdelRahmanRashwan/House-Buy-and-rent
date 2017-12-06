@@ -176,7 +176,7 @@ public class UserModel extends Model<User> {
             user.setPhone(set.getString("Phone"));
             user.setPicture(new File(set.getString("picPath")));
             PreferencesModel preferencesModel = new PreferencesModel();
-            user.setPreferences(preferencesModel.select(set.getInt("PrefrencesId")));
+//            user.setPreferences(preferencesModel.select(set.getInt("PrefrencesId")));
             AdvertisementModel advertisementModel = new AdvertisementModel();
             user.setAdvertisements(advertisementModel.selectWhere(null,"userId = "+user_id));
             return user;
