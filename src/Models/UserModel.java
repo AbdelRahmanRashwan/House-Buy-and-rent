@@ -12,12 +12,11 @@ import Entities.User;
 
 public class UserModel extends Model<User> {
 
-	public User select(String name) {
-
+	public User selectByEmail(String email) {
         Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Name=?;");
-            p.setString(1,name);
+            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Email=?;");
+            p.setString(1,email);
             ResultSet res = p.executeQuery();
             if(!res.next()){
                 System.out.println("No Records Found");
@@ -31,6 +30,27 @@ public class UserModel extends Model<User> {
         }
         return null;
 	}
+
+    public User selectByEmailAndPassword(String email,String Password) {
+
+        Connection c =DBConnection.getConn();
+        try {
+            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Email=? AND  password=?;");
+            p.setString(1,email);
+            p.setString(2,Password);
+            ResultSet res = p.executeQuery();
+            if(!res.next()){
+                System.out.println("No Records Found");
+                return null;
+            }
+            return parse(res);
+
+        } catch (SQLException e) {
+            System.out.println("Error connecting to DB select (UserModel)");
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 	@Override
     public User select(int id) {
@@ -131,11 +151,11 @@ public class UserModel extends Model<User> {
         return false;
 	}
 
-    public boolean delete(String name) {
+    public boolean delete(String email) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("DELETE FROM user WHERE Name=?;");
-            p.setString(1,name);
+            PreparedStatement p = c.prepareStatement("DELETE FROM user WHERE Email=?;");
+            p.setString(1,email);
             return p.executeUpdate()>0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB delete(UserModel)");

@@ -2,7 +2,7 @@ package Entities;
 
 public class Preferences {
 	private int id;
-	private double size;
+	private int size;
 	private int floor;
 	private String type;
 	private String area;
@@ -15,11 +15,11 @@ public class Preferences {
 		this.id = id;
 	}
 
-	public double getSize() {
+	public int getSize() {
 		return size;
 	}
 
-	public void setSize(double size) {
+	public void setSize(int size) {
 		this.size = size;
 	}
 

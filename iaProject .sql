@@ -26,9 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `*user`
 --
 
-use house_rental;
-
-CREATE TABLE `user` (
+CREATE TABLE `*user` (
   `Name` varchar(150) NOT NULL,
   `Id` int(11) NOT NULL,
   `Email` varchar(150) NOT NULL,
