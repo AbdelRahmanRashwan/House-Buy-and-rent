@@ -7,7 +7,7 @@ import Entities.House;
 public class HouseModel extends Model<House> {
 
 	@Override
-	House select(String id) {
+	House select(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -31,7 +31,7 @@ public class HouseModel extends Model<House> {
 	}
 
 	@Override
-	boolean delete(String id) {
+	boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

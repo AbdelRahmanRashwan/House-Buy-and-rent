@@ -7,7 +7,7 @@ import Entities.Preferences;
 public class PreferencesModel extends Model<Preferences> {
 
 	@Override
-	Preferences select(String id) {
+	Preferences select(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -31,7 +31,7 @@ public class PreferencesModel extends Model<Preferences> {
 	}
 
 	@Override
-	boolean delete(String id) {
+	boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

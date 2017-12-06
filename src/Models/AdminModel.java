@@ -7,7 +7,7 @@ import Entities.Admin;
 public class AdminModel extends Model<Admin> {
 
 	@Override
-	Admin select(String id) {
+	Admin select(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -31,7 +31,7 @@ public class AdminModel extends Model<Admin> {
 	}
 
 	@Override
-	boolean delete(String id) {
+	boolean delete(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

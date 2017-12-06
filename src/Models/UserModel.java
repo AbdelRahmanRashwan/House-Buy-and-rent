@@ -32,6 +32,18 @@ public class UserModel extends Model<User> {
         return null;
 	}
 
+	public int getUserByMail(String mail){
+
+	    //TODO return the index of the user in database if not exist return -1
+        return -1;
+    }
+
+    public User selectByEmailAndPassword(String email, String password){
+
+	    //TODO return the user
+        return new User();
+    }
+
 	@Override
     public User select(int id) {
         Connection c =DBConnection.getConn();
