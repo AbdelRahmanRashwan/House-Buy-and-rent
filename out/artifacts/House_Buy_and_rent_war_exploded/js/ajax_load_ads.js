@@ -13,47 +13,6 @@ function processRequest(xmlHttp) {
     }
 }
 
-function addNewAdCard(ad, house) {
-    var ad_li = document.createElement('li');
-    var ad_type = document.createElement('h1');
-    var ad_description = document.createElement('p');
-    var view_ad_button = document.createElement('button');
-
-    ad_type.id = 'type';
-    ad_type.innerHTML = ad['type'];
-
-    // ad_description.id = 'description';
-    // ad_description.innerHTML = house['description'];
-
-    view_ad_button.innerHTML = 'View';
-    view_ad_button.addEventListener("click", function() {
-        alert("you clicked "+ad['id']); });
-
-    ad_li.className = 'ad_li';
-    ad_li.listStyle = 'none';
-
-    ad_li.appendChild(ad_type);
-    ad_li.appendChild(ad_description);
-    ad_li.appendChild(view_ad_button);
-    document.getElementById('ads_list').appendChild(ad_li);
-}
-
-function updateHTML() {
-    document.getElementById('ads_list').innerHTML = '';
-
-    //Get the reference of the DIV in the HTML DOM by passing the ID
-    for (var ad of ads) {
-        var house = ad['house'];
-
-        addNewAdCard(ad,house);
-    }
-    document.getElementById("ads_list").addEventListener("click", function(e) {
-        if (e.target && e.target.matches("ads_list.ad_li")) {
-            alert("clicked " + e.target.innerText);
-        }
-    });
-}
-
 function get_all_ads(){
     var strURL = "GetAdsServlet";
     var xmlHttp;
@@ -77,9 +36,10 @@ function get_filtered_ads() {
 
     var filters = {};
 
-    filters['location'] = document.getElementById('location').value;
-    filters['type'] = document.getElementById('type').value;
-    filters['size'] = {'lower_bound':size_lower_bound, 'upper_bound':size_upper_bound};
+    filters['Area'] = document.getElementById('area').value;
+    filters['Type'] = document.getElementById('house_type').value;
+    filters['Size'] = {'lower_bound':size_lower_bound, 'upper_bound':size_upper_bound};
+
 
     var xmlHttp = null;
 
@@ -95,3 +55,54 @@ function get_filtered_ads() {
     xmlHttp.send("filter=" +JSON.stringify(filters));
 
 }
+
+function updateHTML() {
+    document.getElementById('ads_list').innerHTML = '';
+
+    //Get the reference of the DIV in the HTML DOM by passing the ID
+    for (var ad of ads) {
+        var house = ad['house'];
+
+        addNewAdCard(ad,house);
+    }
+}
+
+function addNewAdCard(ad, house) {
+    var ad_li = document.createElement('li');
+    var ad_type = document.createElement('h1');
+    var ad_description = document.createElement('p');
+    var view_ad_button = document.createElement('button');
+
+    ad_type.id = 'type';
+    ad_type.innerHTML = ad['type'];
+
+    ad_description.id = 'description';
+    // ad_description.innerHTML = house['description'];
+
+    view_ad_button.innerHTML = 'View';
+    view_ad_button.addEventListener("click", function() {
+        window.location.replace("show_ad.jsp?id="+ad['id']);
+    });
+
+    ad_li.listStyle = 'none';
+
+    ad_li.appendChild(ad_type);
+    ad_li.appendChild(ad_description);
+    ad_li.appendChild(view_ad_button);
+
+    document.getElementById('ads_list').appendChild(ad_li);
+}
+
+// function redirect(url, ad) {
+//     document.getElementById('houseType').setAttribute('value', ad['type']);
+//     // document.getElementById('space').setAttribute('value', ad['space']);
+//     // document.getElementById('description').setAttribute('value', ad['description']);
+//     // document.getElementById('location').setAttribute('value', ad['area']);
+//     // document.getElementById('floor').setAttribute('value', ad['floor']);
+//     // document.getElementById('lng').setAttribute('value', ad['longitude']);
+//     // document.getElementById('lat').setAttribute('value', ad['latitude']);
+//     document.getElementById('hidden_form').setAttribute('action',url);
+//     document.getElementById('hidden_form').submit();
+//
+//
+// }

@@ -31,12 +31,7 @@ public class    AddAdServlet extends HttpServlet {
         house_model = new HouseModel();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response){
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException{
         PrintWriter out = response.getWriter();
         HttpSession current_session = request.getSession();
         UserModel userModel = new UserModel();
@@ -60,6 +55,10 @@ public class    AddAdServlet extends HttpServlet {
         }else{
             out.print("fail");
         }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response){
+
     }
 
     private House parseHouse(HttpServletRequest houseData) {

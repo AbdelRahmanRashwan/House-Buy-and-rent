@@ -43,7 +43,6 @@ public class AdvertisementModel extends Model<Advertisement> {
 
             while(res.next())
                 ads.add(adParser(res));
-
             return ads;
 
         } catch (SQLException e) {
@@ -57,15 +56,16 @@ public class AdvertisementModel extends Model<Advertisement> {
     public List<Advertisement> selectWhere(List<String> columns, String where) {
         Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE ?;");
-            p.setString(1,where);
+            System.out.println(where);
+            PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE "+where+";");
+//            p.setString(1,where);
             ResultSet res = p.executeQuery();
 
             ArrayList<Advertisement> ads=new ArrayList<>();
 
             while(res.next())
                 ads.add(adParser(res));
-
+            System.out.println("size: "+ads.size());
             return ads;
 
         } catch (SQLException e) {
@@ -176,6 +176,7 @@ public class AdvertisementModel extends Model<Advertisement> {
             UserModel userModel = new UserModel();
             User user=userModel.select(res.getInt(6));
             ad.setUser(user);
+            System.out.println(ad.getType()+" "+ad.getId()+" "+ad.getRate());
             return ad;
         } catch (SQLException e) {
             System.out.println("Error not valid column adParser (AdvertisementModel)");

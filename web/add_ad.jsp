@@ -15,7 +15,7 @@
     </head>
 
     <body>
-        <form action="AddAdServlet">
+        <form action="AddAdServlet" method="post">
             <input name="type" type="text" placeholder="Type" required/><br>
             <input name="space" type="number" placeholder="Space" required/><br>
             <input name="description" type="text" placeholder="Description" required/><br>

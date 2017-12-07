@@ -168,7 +168,7 @@ public class UserModel extends Model<User> {
     public boolean insert(User user) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("INSERT INTO `*user`(`Name`, `Email`, `Phone`, `address`, `password`, `picPath`, `PrefrencesId`) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement p = c.prepareStatement("INSERT INTO `user`(`Name`, `Email`, `Phone`, `address`, `password`, `picPath`, `PrefrencesId`) VALUES (?,?,?,?,?,?,?)");
             p.setString(1,user.getName());
             p.setString(2,user.getEmail());
             p.setString(3,user.getPhone());
@@ -198,7 +198,7 @@ public class UserModel extends Model<User> {
             PreferencesModel preferencesModel = new PreferencesModel();
 //            user.setPreferences(preferencesModel.select(set.getInt("PrefrencesId")));
             AdvertisementModel advertisementModel = new AdvertisementModel();
-            user.setAdvertisements(advertisementModel.selectWhere(null,"userId = "+user_id));
+//            user.setAdvertisements(advertisementModel.selectWhere(null,"userId = "+user_id));
             return user;
         } catch (SQLException e) {
             System.out.println("Error not valid column Parse (UserModel)");

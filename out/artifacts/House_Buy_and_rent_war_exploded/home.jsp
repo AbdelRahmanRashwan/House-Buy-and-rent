@@ -26,10 +26,10 @@
                 </ul>
             </div>
             <div class="right">
-                <label for="location">Location: </label>
-                <input id="location" type="text"/><br>
-                <label for="type">House type: </label>
-                <input id="type" type="text"/><br>
+                <label for="area">Location: </label>
+                <input id="area" type="text"/><br>
+                <label for="house_type">House type: </label>
+                <input id="house_type" type="text"/><br>
                 <label>
                     Space:
                     <input type="number" id="lower_bound">
@@ -40,6 +40,16 @@
                 <br>
                 <button class="btn" onclick="get_filtered_ads()">Apply filter</button>
             </div>
+
+            <%--<form id="hidden_form" method="post" hidden>--%>
+                <%--<input id="houseType" name="toto"/>--%>
+                <%--<input id="space" type="number"/>--%>
+                <%--<input id="description" type="text"/>--%>
+                <%--<input id="location" type="text"/>--%>
+                <%--<input id="floor" type="number"/>--%>
+                <%--<input id="lng" name="lng"/>--%>
+                <%--<input id="lat" name="lat"/>--%>
+            <%--</form>--%>
         </div>
     </body>
 </html>
