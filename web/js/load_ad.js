@@ -44,9 +44,8 @@ function show_map(lng, lat) {
 }
 
 function updateHTML(ad) {
-    // document.writeln(ad['type']);
     document.getElementById('house_type').innerHTML = ad['type'];
-    // document.getElementById('description').setAttribute('value',ad['description']);
-    // document.getElementById('area').setAttribute('value', ad['area']);
-    // show_map(ad['longitude'],ad['latitude']);
+    document.getElementById('description').setAttribute('value',ad['description']);
+    document.getElementById('area').setAttribute('value', ad['area']);
+    show_map(ad['longitude'],ad['latitude']);
 }

@@ -1,5 +1,6 @@
 package Servlets;
 
+import Controllers.NotificationsController;
 import Entities.Advertisement;
 import Entities.User;
 import Models.AdvertisementModel;
@@ -13,16 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/AddAdServlet")
 public class    AddAdServlet extends HttpServlet {
 
     private AdvertisementModel ads_model;
+    private NotificationsController notificationController;
 
     @Override
     public void init() throws ServletException {
         super.init();
         ads_model = new AdvertisementModel();
+        notificationController = new NotificationsController();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException{
@@ -38,6 +43,12 @@ public class    AddAdServlet extends HttpServlet {
         ad.setUser(user);
 
         if(ads_model.insert(ad)){
+            List<String> columns = new ArrayList<String>();
+            columns.add("Id");
+            int ad_id = ads_model.selectWhere(columns,"adOwnerId = "+user_id).get(0).getId();
+            ad.setId(ad_id);
+            notificationController.notify(ad);
+
             out.print("success");
         }else{
             out.print("fail");
