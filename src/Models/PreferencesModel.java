@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entities.Preferences;
+import Entities.User;
 
 public class PreferencesModel extends Model<Preferences> {
 
@@ -75,11 +76,12 @@ public class PreferencesModel extends Model<Preferences> {
 	boolean update(Preferences preferences) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("UPDATE `prefrence` SET `Type`=?,`size`=?,`area`=?,`Floor`=? WHERE Id=?");
+            PreparedStatement p = c.prepareStatement("UPDATE prefrence SET `Type`=?,`size`=?,`area`=?,`Floor`=? ,`userId`=? WHERE Id=?");
             p.setString(1,preferences.getType());
             p.setInt(2,preferences.getSize());
             p.setString(3,preferences.getArea());
             p.setInt(4,preferences.getFloor());
+            p.setInt(5,preferences.getUser().getId());
             p.setInt(5,preferences.getId());
 
             return p.executeUpdate()>0;
@@ -107,11 +109,12 @@ public class PreferencesModel extends Model<Preferences> {
 	boolean insert(Preferences preferences) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("INSERT INTO `prefrence`( `Type`, `size`, `area`, `Floor`) VALUES  (?,?,?,?)");
+            PreparedStatement p = c.prepareStatement("INSERT INTO `prefrence`( `Type`, `size`, `area`, `Floor`,`userId`) VALUES  (?,?,?,?,?)");
             p.setString(1,preferences.getType());
             p.setInt(2,preferences.getSize());
             p.setString(3,preferences.getArea());
             p.setInt(4,preferences.getFloor());
+            p.setInt(5,preferences.getUser().getId());
 
             return p.executeUpdate()>0;
         } catch (SQLException e) {
@@ -122,17 +125,21 @@ public class PreferencesModel extends Model<Preferences> {
 
     private Preferences parse(ResultSet res) {
         try {
+            UserModel userModel =new UserModel();
             int Id = res.getInt("Id");
             String Type=res.getString("Type");
             String area = res.getString("area");
             int size = res.getInt("size");
             int Floor=res.getInt("Floor");
+            int userId = res.getInt("userId");
+            User user =userModel.select(userId);
             Preferences preferences = new Preferences();
             preferences.setArea(area);
             preferences.setFloor(Floor);
             preferences.setId(Id);
             preferences.setSize(size);
             preferences.setType(Type);
+            preferences.setUser(user);
             return  preferences;
         } catch (SQLException e) {
             e.printStackTrace();

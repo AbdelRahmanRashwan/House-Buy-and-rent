@@ -2,15 +2,76 @@ package Entities;
 
 public class Advertisement {
 	private int id;
-	private House house;
-	private User user;
+	private int size;
+	private int Floor;
+    private double rate;
+	private double Longitude;
+	private double Latitude;
+    private String Description;
+	private String Status;
+	private String Area;
 	private String type;
+    private User user;
 	private boolean isSuspended;
-	private double rate;
 
 	public Advertisement(){
 		this.user = new User();
-		this.house = new House();
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getFloor() {
+		return Floor;
+	}
+
+	public void setFloor(int floor) {
+		Floor = floor;
+	}
+
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String description) {
+		Description = description;
+	}
+
+	public double getLongitude() {
+		return Longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		Longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return Latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		Latitude = latitude;
+	}
+
+	public String getStatus() {
+		return Status;
+	}
+
+	public void setStatus(String status) {
+		Status = status;
+	}
+
+	public String getArea() {
+		return Area;
+	}
+
+	public void setArea(String area) {
+		Area = area;
 	}
 
 	public int getId() {
@@ -19,14 +80,6 @@ public class Advertisement {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public House getHouse() {
-		return house;
-	}
-
-	public void setHouse(House house) {
-		this.house = house;
 	}
 
 	public User getUser() {
