@@ -6,6 +6,15 @@ public class Preferences {
 	private int floor;
 	private String type;
 	private String area;
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public int getId() {
 		return id;

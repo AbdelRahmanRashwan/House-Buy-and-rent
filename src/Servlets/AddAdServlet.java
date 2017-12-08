@@ -1,7 +1,6 @@
 package Servlets;
 
 import Entities.Advertisement;
-import Entities.House;
 import Entities.User;
 import Models.AdvertisementModel;
 import Models.HouseModel;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 @WebServlet("/AddAdServlet")
 public class    AddAdServlet extends HttpServlet {
