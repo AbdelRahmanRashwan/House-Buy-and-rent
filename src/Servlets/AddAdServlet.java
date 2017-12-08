@@ -3,7 +3,6 @@ package Servlets;
 import Entities.Advertisement;
 import Entities.User;
 import Models.AdvertisementModel;
-import Models.HouseModel;
 import Models.UserModel;
 
 import javax.servlet.ServletException;
@@ -19,13 +18,11 @@ import java.io.PrintWriter;
 public class    AddAdServlet extends HttpServlet {
 
     private AdvertisementModel ads_model;
-    private HouseModel house_model;
 
     @Override
     public void init() throws ServletException {
         super.init();
         ads_model = new AdvertisementModel();
-        house_model = new HouseModel();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException{
@@ -34,17 +31,10 @@ public class    AddAdServlet extends HttpServlet {
         UserModel userModel = new UserModel();
 
         int user_id= Integer.parseInt(current_session.getAttribute("id").toString());
-        Advertisement ad = new Advertisement();
         User user = userModel.select(user_id);
 
-        House house = parseHouse(request);
-        //house.setId(id); house_model.insert(house) should return the inserted house id
+        Advertisement ad  = parseAd(request);
 
-
-        ad.setType(request.getParameter("type"));
-        ad.setSuspended(false);
-        ad.setRate(0);
-        ad.setHouse(house);
         ad.setUser(user);
 
         if(ads_model.insert(ad)){
@@ -58,17 +48,20 @@ public class    AddAdServlet extends HttpServlet {
 
     }
 
-    private House parseHouse(HttpServletRequest houseData) {
-        House house = new House();
+    private Advertisement parseAd(HttpServletRequest adData) {
+        Advertisement ad = new Advertisement();
 
-        house.setLatitude(Double.parseDouble(houseData.getParameter("lat")));
-        house.setLongitude(Double.parseDouble(houseData.getParameter("lng")));
-        house.setFloor(Integer.parseInt(houseData.getParameter("floor")));
-        house.setSize(Integer.parseInt(houseData.getParameter("space")));
-        house.setDescription(houseData.getParameter("description"));
-        house.setArea(houseData.getParameter("area"));
+        ad.setType(adData.getParameter("type"));
+        ad.setSuspended(false);
+        ad.setRate(0);
+        ad.setLatitude(Double.parseDouble(adData.getParameter("lat")));
+        ad.setLongitude(Double.parseDouble(adData.getParameter("lng")));
+        ad.setFloor(Integer.parseInt(adData.getParameter("floor")));
+        ad.setSize(Integer.parseInt(adData.getParameter("space")));
+        ad.setDescription(adData.getParameter("description"));
+        ad.setArea(adData.getParameter("area"));
 
 
-        return house;
+        return ad;
     }
 }
