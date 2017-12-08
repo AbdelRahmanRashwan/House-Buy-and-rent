@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import Entities.Advertisement;
 import Entities.Comment;
-import Entities.House;
 import Entities.User;
 
 public class AdvertisementModel extends Model<Advertisement> {
