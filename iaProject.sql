@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2017 at 12:16 PM
+-- Generation Time: Dec 08, 2017 at 01:31 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -43,7 +43,6 @@ CREATE TABLE `advertisement` (
   `Id` int(11) NOT NULL,
   `size` int(11) NOT NULL,
   `Floor` int(11) NOT NULL,
-  `PicId` int(11) NOT NULL,
   `Description` text NOT NULL,
   `Longitude` double NOT NULL,
   `Latitude` double NOT NULL,
@@ -76,7 +75,8 @@ CREATE TABLE `notification` (
 
 CREATE TABLE `picture` (
   `Id` int(11) NOT NULL,
-  `path` varchar(150) NOT NULL
+  `path` varchar(150) NOT NULL,
+  `AdId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -151,8 +151,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `advertisement`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `adOwnerId` (`adOwnerId`),
-  ADD KEY `PicId` (`PicId`);
+  ADD KEY `adOwnerId` (`adOwnerId`);
 
 --
 -- Indexes for table `notification`
@@ -165,7 +164,8 @@ ALTER TABLE `notification`
 -- Indexes for table `picture`
 --
 ALTER TABLE `picture`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `AdId` (`AdId`);
 
 --
 -- Indexes for table `prefrence`
@@ -234,7 +234,6 @@ ALTER TABLE `user`
 -- Constraints for table `advertisement`
 --
 ALTER TABLE `advertisement`
-  ADD CONSTRAINT `advertisement_ibfk_3` FOREIGN KEY (`PicId`) REFERENCES `picture` (`Id`),
   ADD CONSTRAINT `advertisement_ibfk_4` FOREIGN KEY (`adOwnerId`) REFERENCES `user` (`Id`);
 
 --
@@ -243,6 +242,12 @@ ALTER TABLE `advertisement`
 ALTER TABLE `notification`
   ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`AdvertismentId`) REFERENCES `advertisement` (`Id`),
   ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `user` (`Id`);
+
+--
+-- Constraints for table `picture`
+--
+ALTER TABLE `picture`
+  ADD CONSTRAINT `picture_ibfk_1` FOREIGN KEY (`AdId`) REFERENCES `advertisement` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `prefrence`
