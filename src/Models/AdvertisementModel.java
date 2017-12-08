@@ -1,195 +1,176 @@
 package Models;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import Entities.Advertisement;
 import Entities.Comment;
 import Entities.User;
 
 public class AdvertisementModel extends Model<Advertisement> {
 
-	@Override
+    @Override
     public Advertisement select(int id) {
-		Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE Id=?;");
-            p.setInt(1,id);
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM advertisement WHERE id=?;");
+            p.setInt(1, id);
             ResultSet res = p.executeQuery();
-            if(!res.next()){
+            if (!res.next()) {
                 System.out.println("No Records Found");
                 return null;
             }
-            return adParser(res);
-
+            return parse(res);
         } catch (SQLException e) {
             System.out.println("Error connecting to DB select (AdvertisementModel)");
             e.printStackTrace();
         }
         return null;
-	}
+    }
 
-	@Override
+    @Override
     public List<Advertisement> selectAll() {
-        Connection c =DBConnection.getConn();
         try {
-             ResultSet res  =c.prepareStatement("SELECT * FROM advertisement;").executeQuery();
-
-            ArrayList<Advertisement> ads=new ArrayList<>();
-
-            while(res.next())
-                ads.add(adParser(res));
+            ResultSet res = conn.prepareStatement("SELECT * FROM advertisement;").executeQuery();
+            ArrayList<Advertisement> ads = new ArrayList<>();
+            while (res.next()) {
+                ads.add(parse(res));
+            }
             return ads;
-
         } catch (SQLException e) {
             System.out.println("Error connecting to DB selectAll (AdvertisementModel)");
             e.printStackTrace();
         }
         return null;
-	}
+    }
 
-	@Override
-    public List<Advertisement> selectWhere(List<String> columns, String where) {
-        Connection c =DBConnection.getConn();
+    @Override
+    public List<Advertisement> selectWhere(String columns, String where) {
         try {
-            System.out.println(where);
-            PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE "+where+";");
-//            p.setString(1,where);
+            PreparedStatement p = conn.prepareStatement("SELECT " + columns + " FROM advertisement WHERE " + where + ";");
             ResultSet res = p.executeQuery();
-
-            ArrayList<Advertisement> ads=new ArrayList<>();
-
-            while(res.next())
-                ads.add(adParser(res));
-            System.out.println("size: "+ads.size());
+            ArrayList<Advertisement> ads = new ArrayList<>();
+            while (res.next()) {
+                ads.add(parse(res));
+            }
             return ads;
-
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB selectWhere(AdvertisementModel)");
+            System.out.println("Error connecting to DB selectWhere (AdvertisementModel)");
             e.printStackTrace();
         }
         return null;
-	}
+    }
 
-	@Override
+    @Override
     public boolean update(Advertisement advertisement) {
-        Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("UPDATE advertisement SET size=?,Floor=?,Description=?,Longitude=?,Latitude=?,Status=?,Area=?,Type=?,rate=?,suspend=?,adOwnerId=? WHERE Id = ?;");
-            p.setInt(1,advertisement.getSize());
-            p.setInt(2,advertisement.getFloor());
-            p.setString(3,advertisement.getDescription());
-            p.setDouble(4,advertisement.getLongitude());
-            p.setDouble(5,advertisement.getLatitude());
-            p.setString(6,advertisement.getStatus());
-            p.setString(7,advertisement.getArea());
-            p.setString(8,advertisement.getType());
-            p.setDouble(9,advertisement.getRate());
-            p.setInt(10,advertisement.isSuspended()?1:0);
-            p.setInt(11,advertisement.getUser().getId());
-            p.setInt(12,advertisement.getId());
-
-            return p.executeUpdate()>0;
+            PreparedStatement p = conn.prepareStatement("UPDATE advertisement SET size=?,floor=?,description=?,longitude=?,latitude=?,status=?,area=?,type=?,rate=?,suspend=?,user_id=? WHERE id = ?;");
+            p.setInt(1, advertisement.getSize());
+            p.setInt(2, advertisement.getFloor());
+            p.setString(3, advertisement.getDescription());
+            p.setDouble(4, advertisement.getLongitude());
+            p.setDouble(5, advertisement.getLatitude());
+            p.setString(6, advertisement.getStatus());
+            p.setString(7, advertisement.getArea());
+            p.setString(8, advertisement.getType());
+            p.setDouble(9, advertisement.getRate());
+            p.setInt(10, advertisement.isSuspend() ? 1 : 0);
+            p.setInt(11, advertisement.getUser().getId());
+            p.setInt(12, advertisement.getId());
+            return p.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB update(AdvertisementModel)");
+            System.out.println("Error connecting to DB update (AdvertisementModel)");
             e.printStackTrace();
         }
         return false;
     }
 
-	@Override
+    @Override
     public boolean delete(int id) {
-	    Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("DELETE FROM advertisement WHERE Id=?;");
-            p.setInt(1,id);
-            return p.executeUpdate()>0;
+            PreparedStatement p = conn.prepareStatement("DELETE FROM advertisement WHERE id=?;");
+            p.setInt(1, id);
+            return p.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB delete(AdvertisementModel)");
+            System.out.println("Error connecting to DB delete (AdvertisementModel)");
             e.printStackTrace();
         }
         return false;
-	}
-
-	@Override
-    public boolean insert(Advertisement advertisement) {
-        Connection c = DBConnection.getConn();
-        try {
-            PreparedStatement p = c.prepareStatement("INSERT into advertisement ( size, Floor, Description, Longitude, Latitude, Status, Area, Type, rate, suspend, adOwnerId) values (?,?,?,?,?,?,?,?,?,?,?);");
-            p.setInt(1,advertisement.getSize());
-            p.setInt(2,advertisement.getFloor());
-            p.setString(3,advertisement.getDescription());
-            p.setDouble(4,advertisement.getLongitude());
-            p.setDouble(5,advertisement.getLatitude());
-            p.setString(6,advertisement.getStatus());
-            p.setString(7,advertisement.getArea());
-            p.setString(8,advertisement.getType());
-            p.setDouble(9,advertisement.getRate());
-            p.setInt(10,advertisement.isSuspended()?1:0);
-            p.setInt(11,advertisement.getUser().getId());
-            return p.executeUpdate()>0;
-        } catch (SQLException e) {
-            System.out.println("Error connecting to DB insert(AdvertisementModel)");
-            e.printStackTrace();
-        }		return false;
-	}
-
-    public boolean comment(int adID,int userID,String comment){
-        Connection c = DBConnection.getConn();
-        try {
-            PreparedStatement p = c.prepareStatement("INSERT into user_advertisement (userId,AdvertisementId,comment) values (?,?,?);");
-            p.setInt(1,userID);
-            p.setInt(2,adID);
-            p.setString(3,comment);
-            return p.executeUpdate()>0;
-        } catch (SQLException e) {
-            System.out.println("Error connecting to DB comment(AdvertisementModel)");
-            e.printStackTrace();
-        }
-	    return false;
     }
 
-    public List<Comment> adComments(int adId){
-        Connection c =DBConnection.getConn();
+    @Override
+    public boolean insert(Advertisement advertisement) {
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM user_advertisement WHERE AdvertisementId=?;");
-            p.setInt(1,adId);
-            ResultSet res = p.executeQuery();
+            PreparedStatement p = conn.prepareStatement("INSERT into advertisement ( size, floor, description, longitude, latitude, status, area, type, rate, suspend, user_id) values (?,?,?,?,?,?,?,?,?,?,?);");
+            p.setInt(1, advertisement.getSize());
+            p.setInt(2, advertisement.getFloor());
+            p.setString(3, advertisement.getDescription());
+            p.setDouble(4, advertisement.getLongitude());
+            p.setDouble(5, advertisement.getLatitude());
+            p.setString(6, advertisement.getStatus());
+            p.setString(7, advertisement.getArea());
+            p.setString(8, advertisement.getType());
+            p.setDouble(9, advertisement.getRate());
+            p.setInt(10, advertisement.isSuspend() ? 1 : 0);
+            p.setInt(11, advertisement.getUser().getId());
+            return p.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error connecting to DB insert (AdvertisementModel)");
+            e.printStackTrace();
+        }
+        return false;
+    }
 
+    public boolean comment(int advertisementId, int userId, String comment) {
+        try {
+            PreparedStatement p = conn.prepareStatement("INSERT into user_advertisement (user_id,advertisement_id,comment) values (?,?,?);");
+            p.setInt(1, userId);
+            p.setInt(2, advertisementId);
+            p.setString(3, comment);
+            return p.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error connecting to DB comment (AdvertisementModel)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<Comment> adComments(int adId) {
+        try {
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM user_advertisement WHERE advertisement_id=?;");
+            p.setInt(1, adId);
+            ResultSet res = p.executeQuery();
             ArrayList<Comment> comments = new ArrayList<>();
             while (res.next()) {
-                Comment comment = new Comment(res.getInt(0),res.getInt(1),res.getString(2));
+                Comment comment = new Comment(res.getInt(0), res.getInt(1), res.getString(2));
                 comments.add(comment);
             }
             return comments;
-
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB adComments(AdvertisementModel)");
+            System.out.println("Error connecting to DB adComments (AdvertisementModel)");
             e.printStackTrace();
         }
         return null;
     }
 
-	private Advertisement adParser(ResultSet res){
-
+    Advertisement parse(ResultSet res) {
         try {
             Advertisement ad = new Advertisement();
-            ad.setId(res.getInt("Id"));
+            ad.setId(res.getInt("id"));
             ad.setSize(res.getInt("size"));
-            ad.setFloor(res.getInt("Floor"));
-            ad.setDescription(res.getString("Description"));
-            ad.setLongitude(res.getDouble("Longitude"));
-            ad.setLatitude(res.getDouble("Latitude"));
-            ad.setStatus(res.getString("Status"));
-            ad.setArea(res.getString("Area"));
-            ad.setType(res.getString("Type"));
+            ad.setFloor(res.getInt("floor"));
+            ad.setDescription(res.getString("description"));
+            ad.setLongitude(res.getDouble("longitude"));
+            ad.setLatitude(res.getDouble("latitude"));
+            ad.setStatus(res.getString("status"));
+            ad.setArea(res.getString("area"));
+            ad.setType(res.getString("type"));
             ad.setRate(res.getFloat("rate"));
-            ad.setSuspended(res.getInt("suspend") > 0);
+            ad.setSuspend(res.getInt("suspend") > 0);
             UserModel userModel = new UserModel();
-            User user=userModel.select(res.getInt("adOwnerId"));
+            User user = userModel.select(res.getInt("user_id"));
             ad.setUser(user);
             System.out.println(ad.getType()+" "+ad.getId()+" "+ad.getRate());
             return ad;
