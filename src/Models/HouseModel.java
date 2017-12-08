@@ -2,8 +2,6 @@ package Models;
 
 import java.util.List;
 
-import Entities.House;
-
 public class HouseModel extends Model<House> {
 
 	@Override

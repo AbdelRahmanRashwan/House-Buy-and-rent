@@ -13,7 +13,7 @@ function processRequest(xmlHttp) {
     }
 }
 
-function addNewAdCard(ad, house) {
+function addNewAdCard(ad) {
     var ad_li = document.createElement('li');
     var ad_type = document.createElement('h1');
     var ad_description = document.createElement('p');
@@ -23,7 +23,7 @@ function addNewAdCard(ad, house) {
     ad_type.innerHTML = ad['type'];
 
     ad_description.id = 'description';
-    ad_description.innerHTML = house['description'];
+    ad_description.innerHTML = ad['description'];
 
     view_ad_button.innerHTML = 'View';
     view_ad_button.addEventListener("click", function() {
@@ -42,9 +42,7 @@ function updateHTML() {
 
     //Get the reference of the DIV in the HTML DOM by passing the ID
     for (var ad of ads) {
-        var house = ad['house'];
-
-        addNewAdCard(ad,house);
+        addNewAdCard(ad);
     }
 }
 

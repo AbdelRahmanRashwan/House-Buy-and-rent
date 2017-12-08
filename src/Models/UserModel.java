@@ -118,15 +118,14 @@ public class UserModel extends Model<User> {
     public boolean update(User user) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("UPDATE `*user` SET `Name`=?,`Email`=?,`Phone`=?,`address`=?,`password`=?,`picPath`=?,`PrefrencesId`=? WHERE `Id`=?");
+            PreparedStatement p =c.prepareStatement("UPDATE user SET `Name`=?,`Email`=?,`Phone`=?,`address`=?,`password`=?,`picPath`=? WHERE `Id`=?");
             p.setString(1,user.getName());
             p.setString(2,user.getEmail());
             p.setString(3,user.getPhone());
             p.setString(4,user.getAddress());
             p.setString(5,user.getPassword());
             p.setString(6,user.getPicture().getAbsolutePath());
-            p.setInt(7,user.getPreferences().getId());
-            p.setInt(8,user.getId());
+            p.setInt(7,user.getId());
 
             return p.executeUpdate()>0;
         } catch (SQLException e) {
@@ -168,14 +167,13 @@ public class UserModel extends Model<User> {
     public boolean insert(User user) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("INSERT INTO `*user`(`Name`, `Email`, `Phone`, `address`, `password`, `picPath`, `PrefrencesId`) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement p = c.prepareStatement("INSERT INTO user(`Name`, `Email`, `Phone`, `address`, `password`, `picPath` ) VALUES (?,?,?,?,?,?)");
             p.setString(1,user.getName());
             p.setString(2,user.getEmail());
             p.setString(3,user.getPhone());
             p.setString(4,user.getAddress());
             p.setString(5,user.getPassword());
             p.setString(6,user.getPicture().getAbsolutePath());
-            p.setInt(7,user.getPreferences().getId());
             return p.executeUpdate()>0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB insert(UserModel)");
@@ -195,8 +193,7 @@ public class UserModel extends Model<User> {
             user.setPassword(set.getString("password"));
             user.setPhone(set.getString("Phone"));
             user.setPicture(new File(set.getString("picPath")));
-            PreferencesModel preferencesModel = new PreferencesModel();
-//            user.setPreferences(preferencesModel.select(set.getInt("PrefrencesId")));
+
             AdvertisementModel advertisementModel = new AdvertisementModel();
             user.setAdvertisements(advertisementModel.selectWhere(null,"userId = "+user_id));
             return user;

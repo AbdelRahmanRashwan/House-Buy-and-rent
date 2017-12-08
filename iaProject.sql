@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2017 at 08:31 AM
+-- Generation Time: Dec 08, 2017 at 01:31 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -19,23 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ia`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `*user`
---
-
-CREATE TABLE `*user` (
-  `Name` varchar(150) NOT NULL,
-  `Id` int(11) NOT NULL,
-  `Email` varchar(150) NOT NULL,
-  `Phone` varchar(12) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `picPath` varchar(150) NOT NULL,
-  `PrefrencesId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -58,29 +41,17 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `advertisement` (
   `Id` int(11) NOT NULL,
-  `houseId` int(11) NOT NULL,
+  `size` int(11) NOT NULL,
+  `Floor` int(11) NOT NULL,
+  `Description` text NOT NULL,
+  `Longitude` double NOT NULL,
+  `Latitude` double NOT NULL,
+  `Status` varchar(100) NOT NULL,
+  `Area` varchar(100) NOT NULL,
   `Type` varchar(100) NOT NULL,
   `rate` float NOT NULL,
   `suspend` tinyint(4) NOT NULL,
   `adOwnerId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `house`
---
-
-CREATE TABLE `house` (
-  `Id` int(11) NOT NULL,
-  `Size` int(11) NOT NULL,
-  `Description` varchar(150) NOT NULL,
-  `Floor` int(11) NOT NULL,
-  `Type` varchar(100) NOT NULL,
-  `PicId` int(11) NOT NULL,
-  `Longitude` varchar(100) NOT NULL,
-  `Latitude` varchar(100) NOT NULL,
-  `Status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -105,7 +76,7 @@ CREATE TABLE `notification` (
 CREATE TABLE `picture` (
   `Id` int(11) NOT NULL,
   `path` varchar(150) NOT NULL,
-  `name` varchar(100) NOT NULL
+  `AdId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -119,7 +90,8 @@ CREATE TABLE `prefrence` (
   `Type` varchar(150) NOT NULL,
   `size` int(11) NOT NULL,
   `area` varchar(150) NOT NULL,
-  `Floor` int(11) NOT NULL
+  `Floor` int(11) NOT NULL,
+  `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -132,6 +104,22 @@ CREATE TABLE `rate` (
   `userId` int(11) NOT NULL,
   `AdvertisementId` int(11) NOT NULL,
   `rate` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(150) NOT NULL,
+  `Email` varchar(150) NOT NULL,
+  `Phone` varchar(11) NOT NULL,
+  `Address` varchar(150) NOT NULL,
+  `password` varchar(150) NOT NULL,
+  `PicPath` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -151,15 +139,6 @@ CREATE TABLE `user_advertisement` (
 --
 
 --
--- Indexes for table `*user`
---
-ALTER TABLE `*user`
-  ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `Name` (`Name`),
-  ADD KEY `PrefrencesId` (`PrefrencesId`),
-  ADD KEY `picId` (`picPath`);
-
---
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
@@ -172,15 +151,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `advertisement`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `houseId` (`houseId`),
   ADD KEY `adOwnerId` (`adOwnerId`);
-
---
--- Indexes for table `house`
---
-ALTER TABLE `house`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `PicId` (`PicId`);
 
 --
 -- Indexes for table `notification`
@@ -193,14 +164,16 @@ ALTER TABLE `notification`
 -- Indexes for table `picture`
 --
 ALTER TABLE `picture`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `AdId` (`AdId`);
 
 --
 -- Indexes for table `prefrence`
 --
 ALTER TABLE `prefrence`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `CategoryId` (`size`);
+  ADD KEY `CategoryId` (`size`),
+  ADD KEY `userId` (`userId`);
 
 --
 -- Indexes for table `rate`
@@ -208,6 +181,14 @@ ALTER TABLE `prefrence`
 ALTER TABLE `rate`
   ADD KEY `userId` (`userId`),
   ADD KEY `AdvertisementId` (`AdvertisementId`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Email` (`Email`),
+  ADD UNIQUE KEY `Phone` (`Phone`);
 
 --
 -- Indexes for table `user_advertisement`
@@ -221,11 +202,6 @@ ALTER TABLE `user_advertisement`
 --
 
 --
--- AUTO_INCREMENT for table `*user`
---
-ALTER TABLE `*user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
@@ -234,11 +210,6 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `advertisement`
 --
 ALTER TABLE `advertisement`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `house`
---
-ALTER TABLE `house`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `picture`
@@ -251,54 +222,53 @@ ALTER TABLE `picture`
 ALTER TABLE `prefrence`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `*user`
---
-ALTER TABLE `*user`
-  ADD CONSTRAINT `*user_ibfk_2` FOREIGN KEY (`PrefrencesId`) REFERENCES `prefrence` (`Id`);
 
 --
 -- Constraints for table `advertisement`
 --
 ALTER TABLE `advertisement`
-  ADD CONSTRAINT `advertisement_ibfk_1` FOREIGN KEY (`houseId`) REFERENCES `house` (`Id`),
-  ADD CONSTRAINT `advertisement_ibfk_2` FOREIGN KEY (`adOwnerId`) REFERENCES `*user` (`Id`);
-
---
--- Constraints for table `house`
---
-ALTER TABLE `house`
-  ADD CONSTRAINT `house_ibfk_1` FOREIGN KEY (`PicId`) REFERENCES `picture` (`Id`);
+  ADD CONSTRAINT `advertisement_ibfk_4` FOREIGN KEY (`adOwnerId`) REFERENCES `user` (`Id`);
 
 --
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `*user` (`Id`),
-  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`AdvertismentId`) REFERENCES `advertisement` (`Id`);
+  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`AdvertismentId`) REFERENCES `advertisement` (`Id`),
+  ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `user` (`Id`);
+
+--
+-- Constraints for table `picture`
+--
+ALTER TABLE `picture`
+  ADD CONSTRAINT `picture_ibfk_1` FOREIGN KEY (`AdId`) REFERENCES `advertisement` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `prefrence`
+--
+ALTER TABLE `prefrence`
+  ADD CONSTRAINT `prefrence_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`Id`);
 
 --
 -- Constraints for table `rate`
 --
 ALTER TABLE `rate`
-  ADD CONSTRAINT `rate_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `*user` (`Id`),
-  ADD CONSTRAINT `rate_ibfk_2` FOREIGN KEY (`AdvertisementId`) REFERENCES `advertisement` (`Id`);
+  ADD CONSTRAINT `rate_ibfk_2` FOREIGN KEY (`AdvertisementId`) REFERENCES `advertisement` (`Id`),
+  ADD CONSTRAINT `rate_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `user` (`Id`);
 
 --
 -- Constraints for table `user_advertisement`
 --
 ALTER TABLE `user_advertisement`
   ADD CONSTRAINT `user_advertisement_ibfk_1` FOREIGN KEY (`AdvertisementId`) REFERENCES `advertisement` (`Id`),
-  ADD CONSTRAINT `user_advertisement_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `*user` (`Id`);
+  ADD CONSTRAINT `user_advertisement_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`Id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-use house_rental;
-INSERT INTO picture VALUES(1,'/home/pictures','soso');
-INSERT INTO house VALUES (1,500,'Big and nice house with 2 rooms and one bathroom',1,'House',1,16.7,12.5,'active');
