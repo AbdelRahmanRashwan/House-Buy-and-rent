@@ -78,13 +78,19 @@ public class AdvertisementModel extends Model<Advertisement> {
 	boolean update(Advertisement advertisement) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("UPDATE advertisement SET houseId = ?, Type = ?, rate = ?,suspend = ? , adOwnerId = ? WHERE Id = ?;");
-            p.setInt(1,advertisement.getHouse().getId());
-            p.setString(2,advertisement.getType());
-            p.setDouble(3,advertisement.getRate());
-            p.setInt(4,advertisement.isSuspended()?1:0);
-            p.setInt(5,advertisement.getUser().getId());
-            p.setInt(6,advertisement.getId());
+            PreparedStatement p =c.prepareStatement("UPDATE advertisement SET size=?,Floor=?,Description=?,Longitude=?,Latitude=?,Status=?,Area=?,Type=?,rate=?,suspend=?,adOwnerId=? WHERE Id = ?;");
+            p.setInt(1,advertisement.getSize());
+            p.setInt(2,advertisement.getFloor());
+            p.setString(3,advertisement.getDescription());
+            p.setDouble(4,advertisement.getLongitude());
+            p.setDouble(5,advertisement.getLatitude());
+            p.setString(6,advertisement.getStatus());
+            p.setString(7,advertisement.getArea());
+            p.setString(8,advertisement.getType());
+            p.setDouble(9,advertisement.getRate());
+            p.setInt(10,advertisement.isSuspended()?1:0);
+            p.setInt(11,advertisement.getUser().getId());
+            p.setInt(12,advertisement.getId());
 
             return p.executeUpdate()>0;
         } catch (SQLException e) {
@@ -112,12 +118,18 @@ public class AdvertisementModel extends Model<Advertisement> {
 	boolean insert(Advertisement advertisement) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("INSERT into advertisement (houseId,Type,rate,suspend,adOwnerId) values (?,?,?,?,?);");
-            p.setInt(1,advertisement.getHouse().getId());
-            p.setString(2,advertisement.getType());
-            p.setDouble(3,advertisement.getRate());
-            p.setInt(4,advertisement.isSuspended()?1:0);
-            p.setInt(5,advertisement.getUser().getId());
+            PreparedStatement p = c.prepareStatement("INSERT into advertisement ( size, Floor, Description, Longitude, Latitude, Status, Area, Type, rate, suspend, adOwnerId) values (?,?,?,?,?,?,?,?,?,?,?);");
+            p.setInt(1,advertisement.getSize());
+            p.setInt(2,advertisement.getFloor());
+            p.setString(3,advertisement.getDescription());
+            p.setDouble(4,advertisement.getLongitude());
+            p.setDouble(5,advertisement.getLatitude());
+            p.setString(6,advertisement.getStatus());
+            p.setString(7,advertisement.getArea());
+            p.setString(8,advertisement.getType());
+            p.setDouble(9,advertisement.getRate());
+            p.setInt(10,advertisement.isSuspended()?1:0);
+            p.setInt(11,advertisement.getUser().getId());
             return p.executeUpdate()>0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB insert(AdvertisementModel)");
@@ -165,15 +177,19 @@ public class AdvertisementModel extends Model<Advertisement> {
 
         try {
             Advertisement ad = new Advertisement();
-            ad.setId(res.getInt(0));
-            HouseModel houseModel = new HouseModel();
-            House house = houseModel.select(res.getInt(1));
-            ad.setHouse(house);
-            ad.setType(res.getString(2));
-            ad.setRate(res.getFloat(3));
-            ad.setSuspended(res.getInt(4) > 0);
+            ad.setId(res.getInt("Id"));
+            ad.setSize(res.getInt("size"));
+            ad.setFloor(res.getInt("Floor"));
+            ad.setDescription(res.getString("Description"));
+            ad.setLongitude(res.getDouble("Longitude"));
+            ad.setLatitude(res.getDouble("Latitude"));
+            ad.setStatus(res.getString("Status"));
+            ad.setArea(res.getString("Area"));
+            ad.setType(res.getString("Type"));
+            ad.setRate(res.getFloat("rate"));
+            ad.setSuspended(res.getInt("suspend") > 0);
             UserModel userModel = new UserModel();
-            User user=userModel.select(res.getInt(5));
+            User user=userModel.select(res.getInt("adOwnerId"));
             ad.setUser(user);
             return ad;
         } catch (SQLException e) {
