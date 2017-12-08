@@ -1,31 +1,30 @@
 package Entities;
 
 public class Comment {
-    private int userID;
-    private int adID;
+    private int userId;
+    private int advertisementId;
     private String comment;
 
-    public Comment(int userID, int adID, String comment)
-    {
-        this.userID=userID;
-        this.adID=adID;
-        this.comment=comment;
+    public Comment(int userId, int advertisementId, String comment) {
+        this.userId = userId;
+        this.advertisementId = advertisementId;
+        this.comment = comment;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getAdID() {
-        return adID;
+    public int getAdvertisementId() {
+        return advertisementId;
     }
 
-    public void setAdID(int adID) {
-        this.adID = adID;
+    public void setAdvertisementId(int advertisementId) {
+        this.advertisementId = advertisementId;
     }
 
     public String getComment() {

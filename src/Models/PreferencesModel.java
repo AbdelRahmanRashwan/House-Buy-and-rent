@@ -12,11 +12,10 @@ import Entities.User;
 
 public class PreferencesModel extends Model<Preferences> {
 
-	@Override
-	Preferences select(int id) {
-        Connection c = DBConnection.getConn();
+    @Override
+    public Preferences select(int id) {
         try {
-            PreparedStatement p = c.prepareStatement("SELECT * FROM prefrence WHERE Id=?;");
+            PreparedStatement p = conn.prepareStatement("SELECT * FROM preferences WHERE id=?;");
             p.setInt(1, id);
             ResultSet res = p.executeQuery();
             if (!res.next()) {
@@ -24,7 +23,6 @@ public class PreferencesModel extends Model<Preferences> {
                 return null;
             }
             return parse(res);
-
         } catch (SQLException e) {
             System.out.println("Error connecting to DB select (PreferencesModel)");
             e.printStackTrace();
@@ -32,107 +30,97 @@ public class PreferencesModel extends Model<Preferences> {
         return null;
     }
 
-	@Override
-	List<Preferences> selectAll() {
-        Connection c =DBConnection.getConn();
+    @Override
+    public List<Preferences> selectAll() {
         try {
-            ResultSet res  =c.prepareStatement("SELECT * FROM prefrence;").executeQuery();
-            ArrayList<Preferences> preferences=new ArrayList<>();
-            while(res.next())
+            ResultSet res = conn.prepareStatement("SELECT * FROM preferences;").executeQuery();
+            ArrayList<Preferences> preferences = new ArrayList<>();
+            while (res.next()) {
                 preferences.add(parse(res));
-
+            }
             return preferences;
-
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB selectAll (UserModel)");
+            System.out.println("Error connecting to DB selectAll (PreferencesModel)");
             e.printStackTrace();
         }
         return null;
-	}
+    }
 
-	@Override
-	List<Preferences> selectWhere(List<String> columns, String where) {
-        Connection c =DBConnection.getConn();
+    @Override
+    public List<Preferences> selectWhere(String columns, String where) {
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM prefrence WHERE ?;");
-            p.setString(1,where);
+            PreparedStatement p = conn.prepareStatement("SELECT " + columns + " FROM preferences WHERE " + where + ";");
             ResultSet res = p.executeQuery();
-
-            ArrayList<Preferences> preferences=new ArrayList<>();
-
-            while(res.next())
+            ArrayList<Preferences> preferences = new ArrayList<>();
+            while (res.next()) {
                 preferences.add(parse(res));
-
+            }
             return preferences;
-
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB selectWhere(PreferencesModel)");
+            System.out.println("Error connecting to DB selectWhere (PreferencesModel)");
             e.printStackTrace();
         }
         return null;
-	}
+    }
 
-	@Override
-	boolean update(Preferences preferences) {
-        Connection c = DBConnection.getConn();
+    @Override
+    public boolean update(Preferences preferences) {
         try {
-            PreparedStatement p = c.prepareStatement("UPDATE prefrence SET `Type`=?,`size`=?,`area`=?,`Floor`=? ,`userId`=? WHERE Id=?");
-            p.setString(1,preferences.getType());
-            p.setInt(2,preferences.getSize());
-            p.setString(3,preferences.getArea());
-            p.setInt(4,preferences.getFloor());
-            p.setInt(5,preferences.getUser().getId());
-            p.setInt(5,preferences.getId());
-
-            return p.executeUpdate()>0;
+            PreparedStatement p = conn.prepareStatement("UPDATE preferences SET type=?, size=?, area=?, floor=?, user_id=? WHERE id=?");
+            p.setString(1, preferences.getType());
+            p.setInt(2, preferences.getSize());
+            p.setString(3, preferences.getArea());
+            p.setInt(4, preferences.getFloor());
+            p.setInt(5, preferences.getUser().getId());
+            p.setInt(5, preferences.getId());
+            return p.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB insert(PreferencesModel)");
-            e.printStackTrace();
-        }		return false;
-	}
-
-	@Override
-	boolean delete(int id) {
-        Connection c = DBConnection.getConn();
-        try {
-            PreparedStatement p = c.prepareStatement("DELETE FROM prefrence WHERE Id=?;");
-            p.setInt(1,id);
-            return p.executeUpdate()>0;
-        } catch (SQLException e) {
-            System.out.println("Error connecting to DB delete(PreferencesModel)");
+            System.out.println("Error connecting to DB insert (PreferencesModel)");
             e.printStackTrace();
         }
         return false;
-	}
+    }
 
-	@Override
-	boolean insert(Preferences preferences) {
-        Connection c = DBConnection.getConn();
+    @Override
+    public boolean delete(int id) {
         try {
-            PreparedStatement p = c.prepareStatement("INSERT INTO `prefrence`( `Type`, `size`, `area`, `Floor`,`userId`) VALUES  (?,?,?,?,?)");
-            p.setString(1,preferences.getType());
-            p.setInt(2,preferences.getSize());
-            p.setString(3,preferences.getArea());
-            p.setInt(4,preferences.getFloor());
-            p.setInt(5,preferences.getUser().getId());
-
-            return p.executeUpdate()>0;
+            PreparedStatement p = conn.prepareStatement("DELETE FROM preferences WHERE id=?;");
+            p.setInt(1, id);
+            return p.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error connecting to DB insert(PreferencesModel)");
+            System.out.println("Error connecting to DB delete (PreferencesModel)");
             e.printStackTrace();
-        }		return false;
-	}
+        }
+        return false;
+    }
 
-    private Preferences parse(ResultSet res) {
+    @Override
+    public boolean insert(Preferences preferences) {
         try {
-            UserModel userModel =new UserModel();
-            int Id = res.getInt("Id");
-            String Type=res.getString("Type");
+            PreparedStatement p = conn.prepareStatement("INSERT INTO preferences( type, size, area, floor, user_id) VALUES  (?,?,?,?,?)");
+            p.setString(1, preferences.getType());
+            p.setInt(2, preferences.getSize());
+            p.setString(3, preferences.getArea());
+            p.setInt(4, preferences.getFloor());
+            p.setInt(5, preferences.getUser().getId());
+            return p.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error connecting to DB insert (PreferencesModel)");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    Preferences parse(ResultSet res) {
+        try {
+            UserModel userModel = new UserModel();
+            int Id = res.getInt("id");
+            String Type = res.getString("type");
             String area = res.getString("area");
             int size = res.getInt("size");
-            int Floor=res.getInt("Floor");
-            int userId = res.getInt("userId");
-            User user =userModel.select(userId);
+            int Floor = res.getInt("floor");
+            int userId = res.getInt("user_id");
+            User user = userModel.select(userId);
             Preferences preferences = new Preferences();
             preferences.setArea(area);
             preferences.setFloor(Floor);
@@ -140,11 +128,11 @@ public class PreferencesModel extends Model<Preferences> {
             preferences.setSize(size);
             preferences.setType(Type);
             preferences.setUser(user);
-            return  preferences;
+            return preferences;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  null;
+        return null;
 
     }
 

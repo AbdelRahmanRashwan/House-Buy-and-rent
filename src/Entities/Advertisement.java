@@ -1,117 +1,112 @@
 package Entities;
 
 public class Advertisement {
-	private int id;
-	private int size;
-	private int Floor;
+    private int id;
+    private int size;
+    private int floor;
     private double rate;
-	private double Longitude;
-	private double Latitude;
-    private String Description;
-	private String Status;
-	private String Area;
-	private String type;
+    private double longitude;
+    private double latitude;
+    private String description;
+    private String status;
+    private String area;
+    private String type;
+    private boolean suspend;
     private User user;
-	private boolean isSuspended;
 
-	public Advertisement(){
-		this.user = new User();
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setSize(int size) {
-		this.size = size;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	public int getFloor() {
-		return Floor;
-	}
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	public void setFloor(int floor) {
-		Floor = floor;
-	}
+    public int getFloor() {
+        return floor;
+    }
 
-	public String getDescription() {
-		return Description;
-	}
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
 
-	public void setDescription(String description) {
-		Description = description;
-	}
+    public double getRate() {
+        return rate;
+    }
 
-	public double getLongitude() {
-		return Longitude;
-	}
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
 
-	public void setLongitude(double longitude) {
-		Longitude = longitude;
-	}
+    public double getLongitude() {
+        return longitude;
+    }
 
-	public double getLatitude() {
-		return Latitude;
-	}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
-	public void setLatitude(double latitude) {
-		Latitude = latitude;
-	}
+    public double getLatitude() {
+        return latitude;
+    }
 
-	public String getStatus() {
-		return Status;
-	}
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
-	public void setStatus(String status) {
-		Status = status;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getArea() {
-		return Area;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setArea(String area) {
-		Area = area;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getArea() {
+        return area;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public boolean isSuspend() {
+        return suspend;
+    }
 
-	public boolean isSuspended() {
-		return isSuspended;
-	}
+    public void setSuspend(boolean suspend) {
+        this.suspend = suspend;
+    }
 
-	public void setSuspended(boolean suspended) {
-		isSuspended = suspended;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public double getRate() {
-		return rate;
-	}
-
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
