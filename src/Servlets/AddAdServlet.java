@@ -5,6 +5,11 @@ import Entities.Advertisement;
 import Entities.User;
 import Models.AdvertisementModel;
 import Models.UserModel;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
+
+
+
 
 @WebServlet("/AddAdServlet")
 public class    AddAdServlet extends HttpServlet {
@@ -26,6 +34,11 @@ public class    AddAdServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+        try {
+            Class.forName("org.apache.commons.io.IOUtils");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         ads_model = new AdvertisementModel();
         notificationController = new NotificationController();
     }
@@ -33,18 +46,33 @@ public class    AddAdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException{
         PrintWriter out = response.getWriter();
         HttpSession current_session = request.getSession();
+
+        List<FileItem> adData = null;
+        try {
+            adData = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+        } catch (FileUploadException e) {
+            e.printStackTrace();
+        }
+
         UserModel userModel = new UserModel();
 
-        int user_id= Integer.parseInt(current_session.getAttribute("id").toString());
+        int user_id= 1;
         User user = userModel.select(user_id);
 
-        Advertisement ad  = parseAd(request);
+        Advertisement ad  = parseAd(adData,out);
 
         ad.setUser(user);
-
+        System.out.println((ads_model==null));
         if(ads_model.insert(ad)){
-            int ad_id = ads_model.selectWhere("Id","adOwnerId = "+user_id).get(0).getId();
+
+            int ad_id = ads_model.selectWhere("*","user_id = "+user_id).get(0).getId();
             ad.setId(ad_id);
+
+            String picPath = saveImagesToDisk(adData,out);
+            PictureModel pictureModel = new PictureModel();
+            pictureModel.insert(new Picture(picPath,ad_id));
+
+
             notificationController.notify(ad);
 
             out.print("success");
@@ -53,22 +81,54 @@ public class    AddAdServlet extends HttpServlet {
         }
     }
 
+    private String saveImagesToDisk(List<FileItem> items, PrintWriter out) {
+
+        System.out.println("-3");
+        FileItemFactory itemfactory = new DiskFileItemFactory();
+        System.out.println("-2");
+        ServletFileUpload upload = new ServletFileUpload(itemfactory);
+        try{
+            for(FileItem item:items){
+                if(!(item.isFormField())) {
+                    String contentType = '.'+item.getContentType().split("/")[1];
+                    File uploadDir = new File("./pictures");
+                    File file = File.createTempFile("img", contentType, uploadDir);
+                    item.write(file);
+
+                    out.println("File Saved Successfully");
+                    return file.getAbsolutePath();
+                }
+            }
+        }
+        catch(FileUploadException e){
+
+            out.println("upload fail "+e.getMessage());
+        }
+        catch(Exception ex){
+
+            out.println("Error "+ex.getMessage());
+        }
+
+        return "";
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response){
 
     }
 
-    private Advertisement parseAd(HttpServletRequest adData) {
+    private Advertisement parseAd(List<FileItem> adData, PrintWriter out) {
         Advertisement ad = new Advertisement();
 
-        ad.setType(adData.getParameter("type"));
+        ad.setType(adData.get(0).getString());
+        ad.setSize(Integer.parseInt(adData.get(1).getString()));
+        ad.setDescription(adData.get(2).getString());
+        ad.setArea(adData.get(3).getString());
+        ad.setFloor(Integer.parseInt(adData.get(4).getString()));
+        ad.setLatitude(Double.parseDouble(adData.get(6).getString()));
+        ad.setLongitude(Double.parseDouble(adData.get(7).getString()));
         ad.setSuspend(false);
         ad.setRate(0);
-        ad.setLatitude(Double.parseDouble(adData.getParameter("lat")));
-        ad.setLongitude(Double.parseDouble(adData.getParameter("lng")));
-        ad.setFloor(Integer.parseInt(adData.getParameter("floor")));
-        ad.setSize(Integer.parseInt(adData.getParameter("space")));
-        ad.setDescription(adData.getParameter("description"));
-        ad.setArea(adData.getParameter("area"));
+        ad.setStatus("Rent");
 
 
         return ad;

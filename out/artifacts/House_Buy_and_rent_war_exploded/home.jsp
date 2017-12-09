@@ -15,8 +15,9 @@
 
     <body onload="get_all_ads()">
         <nav>
-            <a href=""  id="logout" class="btn">Logout</a>
+            <a href= "" id="logout" class="btn">Logout</a>
             <a href="profile.jsp" id="profile" class="btn">Profile</a>
+            <a href="notifications.jsp" class="btn">Notifications</a>
             <a href="add_ad.jsp" id="new_ad" class="btn">Add new ad</a>
         </nav>
         <div class="container">

@@ -15,14 +15,15 @@
     </head>
 
     <body>
-        <form action="AddAdServlet" method="post">
+        <form action="AddAdServlet" method="post"  encType="multipart/form-data">
             <input name="type" type="text" placeholder="Type" required/><br>
             <input name="space" type="number" placeholder="Space" required/><br>
             <input name="description" type="text" placeholder="Description" required/><br>
             <input name="area" id="area" type="text" placeholder="Area" required/><br>
             <input name="floor" type="number" placeholder="floor" required/><br>
-            <input name="lng" id="lng" type="hidden"/>
+            <input type="file" name="file" value="select images..."/>
             <input name="lat" id="lat" type="hidden"/>
+            <input name="lng" id="lng" type="hidden"/>
 
             <button>Add</button>
         </form>

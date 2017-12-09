@@ -79,7 +79,7 @@ function addNewAdCard(ad) {
 
     view_ad_button.innerHTML = 'View';
     view_ad_button.addEventListener("click", function() {
-        window.location.replace("show_ad.jsp?id="+ad['id']);
+        window.location.href = "show_ad.jsp?id="+ad['id'];
     });
 
     ad_li.listStyle = 'none';

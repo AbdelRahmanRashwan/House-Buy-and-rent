@@ -37,7 +37,7 @@ public class GetFilteredAdsServlet extends HttpServlet {
 
         if(query.isEmpty())
             ads_list = ads_model.selectAll();
-        else ads_list = ads_model.selectWhere(new ArrayList<>(), query);
+        else ads_list = ads_model.selectWhere("*", query);
         response.setContentType("application/json");
 
         Gson gson = new Gson();

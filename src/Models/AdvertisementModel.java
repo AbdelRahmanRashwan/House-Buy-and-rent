@@ -49,7 +49,7 @@ public class AdvertisementModel extends Model<Advertisement> {
     @Override
     public List<Advertisement> selectWhere(String columns, String where) {
         try {
-            PreparedStatement p = conn.prepareStatement("SELECT " + columns + " FROM advertisement WHERE " + where + ";");
+            PreparedStatement p = conn.prepareStatement("SELECT "+ columns +" FROM advertisement WHERE " + where + ";");
             ResultSet res = p.executeQuery();
             ArrayList<Advertisement> ads = new ArrayList<>();
             while (res.next()) {
@@ -170,8 +170,8 @@ public class AdvertisementModel extends Model<Advertisement> {
             ad.setRate(res.getFloat("rate"));
             ad.setSuspend(res.getInt("suspend") > 0);
             UserModel userModel = new UserModel();
-            User user = userModel.select(res.getInt("user_id"));
-            ad.setUser(user);
+//            User user = userModel.select(res.getInt("user_id"));
+//            ad.setUser(user);
             System.out.println(ad.getType()+" "+ad.getId()+" "+ad.getRate());
             return ad;
         } catch (SQLException e) {
