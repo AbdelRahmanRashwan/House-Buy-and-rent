@@ -1,17 +1,15 @@
 package Models;
 
-import java.sql.Connection;
+import Entities.Preferences;
+import Entities.User;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entities.Preferences;
-import Entities.User;
-
 public class PreferencesModel extends Model<Preferences> {
-
 
     @Override
     public Preferences select(int id) {
