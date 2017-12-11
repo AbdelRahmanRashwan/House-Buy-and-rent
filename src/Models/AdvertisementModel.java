@@ -8,6 +8,7 @@ import java.util.List;
 
 import Entities.Advertisement;
 import Entities.Comment;
+import Entities.Picture;
 import Entities.User;
 
 public class AdvertisementModel extends Model<Advertisement> {
@@ -49,7 +50,7 @@ public class AdvertisementModel extends Model<Advertisement> {
     @Override
     public List<Advertisement> selectWhere(String columns, String where) {
         try {
-            PreparedStatement p = conn.prepareStatement("SELECT " + columns + " FROM advertisement WHERE " + where + ";");
+            PreparedStatement p = conn.prepareStatement("SELECT "+ columns +" FROM advertisement WHERE " + where + ";");
             ResultSet res = p.executeQuery();
             ArrayList<Advertisement> ads = new ArrayList<>();
             while (res.next()) {
@@ -66,7 +67,7 @@ public class AdvertisementModel extends Model<Advertisement> {
     @Override
     public boolean update(Advertisement advertisement) {
         try {
-            PreparedStatement p = conn.prepareStatement("UPDATE advertisement SET size=?,floor=?,description=?,longitude=?,latitude=?,status=?,area=?,type=?,rate=?,suspend=?,user_id=? WHERE id = ?;");
+            PreparedStatement p = conn.prepareStatement("UPDATE advertisement SET size=?,floor=?,description=?,longitude=?,latitude=?,status=?,area=?,type=?,rate=?,suspend=? WHERE id = ?;");
             p.setInt(1, advertisement.getSize());
             p.setInt(2, advertisement.getFloor());
             p.setString(3, advertisement.getDescription());
@@ -77,8 +78,7 @@ public class AdvertisementModel extends Model<Advertisement> {
             p.setString(8, advertisement.getType());
             p.setDouble(9, advertisement.getRate());
             p.setInt(10, advertisement.isSuspend() ? 1 : 0);
-            p.setInt(11, advertisement.getUser().getId());
-            p.setInt(12, advertisement.getId());
+            p.setInt(11, advertisement.getId());
             return p.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB update (AdvertisementModel)");
@@ -115,12 +115,41 @@ public class AdvertisementModel extends Model<Advertisement> {
             p.setDouble(9, advertisement.getRate());
             p.setInt(10, advertisement.isSuspend() ? 1 : 0);
             p.setInt(11, advertisement.getUser().getId());
-            return p.executeUpdate() > 0;
+
+            int affected_rows = p.executeUpdate();
+
+            List<Advertisement> ads_by_user = selectWhere("*","user_id = "+advertisement.getUser().getId());
+            int latest_ad_id = ads_by_user.get(ads_by_user.size()-1).getId();
+
+            insertImages(advertisement.getPictures(), latest_ad_id);
+
+            return affected_rows > 0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB insert (AdvertisementModel)");
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void insertImages(List<Picture> pictures, int ad_id) throws SQLException {
+        for(Picture picture : pictures){
+            PreparedStatement p = conn.prepareStatement("INSERT into picture (path, advertisement_id) values (?,?);");
+            p.setString(1,picture.path);
+            p.setInt(2,ad_id);
+            p.executeUpdate();
+        }
+    }
+
+    private List<Picture> getImages(int ad_id) throws SQLException {
+        List<Picture> pictures = new ArrayList<>();
+        PreparedStatement p = conn.prepareStatement("SELECT path FROM picture WHERE advertisement_id = ?;");
+        p.setInt(1,ad_id);
+        ResultSet res = p.executeQuery();
+        while (res.next()) {
+            pictures.add(new Picture(res.getString(1), null));
+        }
+
+        return pictures;
     }
 
     public boolean comment(int advertisementId, int userId, String comment) {
@@ -169,9 +198,12 @@ public class AdvertisementModel extends Model<Advertisement> {
             ad.setType(res.getString("type"));
             ad.setRate(res.getFloat("rate"));
             ad.setSuspend(res.getInt("suspend") > 0);
+            ad.setPictures(getImages(ad.getId()));
             UserModel userModel = new UserModel();
-            User user = userModel.select(res.getInt("user_id"));
-            ad.setUser(user);
+//            User user = userModel.select(res.getInt("user_id"));
+//            ad.setUser(user);
+
+            System.out.println(ad.getType()+" "+ad.getId()+" "+ad.getRate());
             return ad;
         } catch (SQLException e) {
             System.out.println("Error not valid column adParser (AdvertisementModel)");

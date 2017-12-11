@@ -8,7 +8,7 @@ public class NotificationController {
     private static PreferencesModel preferencesModel;
     private static NotificationModel notificationModel;
 
-    NotificationController(){
+    public NotificationController(){
         preferencesModel = new PreferencesModel();
         notificationModel = new NotificationModel();
     }

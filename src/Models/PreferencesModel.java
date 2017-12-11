@@ -12,6 +12,7 @@ import Entities.User;
 
 public class PreferencesModel extends Model<Preferences> {
 
+
     @Override
     public Preferences select(int id) {
         try {
@@ -93,6 +94,7 @@ public class PreferencesModel extends Model<Preferences> {
         }
         return false;
     }
+
 
     @Override
     public boolean insert(Preferences preferences) {
