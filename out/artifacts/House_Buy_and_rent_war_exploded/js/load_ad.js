@@ -1,5 +1,6 @@
-function get_ad(ad_id) {
-
+var curr_user_id;
+function get_ad(ad_id, user_id) {
+    curr_user_id = user_id;
     var strURL = "GetFilteredAdsServlet";
 
     var xmlHttp = null;
@@ -28,24 +29,4 @@ function processRequest(xmlHttp) {
         //Update the HTML
         updateHTML(ads[0]);
     }
-}
-
-function show_map(lng, lat) {
-    var myLatLng = {lat: lat, lng: lng};
-    var options = {
-        zoom: 4,
-        center: myLatLng
-    };
-    map = new google.maps.Map(document.getElementById('map'), options);
-    var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map
-    });
-}
-
-function updateHTML(ad) {
-    document.getElementById('house_type').innerHTML = ad['type'];
-    document.getElementById('description').setAttribute('value',ad['description']);
-    document.getElementById('area').setAttribute('value', ad['area']);
-    show_map(ad['longitude'],ad['latitude']);
 }

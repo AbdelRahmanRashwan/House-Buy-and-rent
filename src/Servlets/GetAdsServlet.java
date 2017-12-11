@@ -2,6 +2,7 @@ package Servlets;
 
 
 import Entities.Advertisement;
+import Entities.Picture;
 import Models.AdvertisementModel;
 import com.google.gson.Gson;
 
@@ -10,9 +11,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.Base64;
 import java.util.List;
+
+import static Servlets.GetFilteredAdsServlet.getString;
 
 @WebServlet("/GetAdsServlet")
 public class GetAdsServlet extends HttpServlet {
@@ -37,8 +40,18 @@ public class GetAdsServlet extends HttpServlet {
 
         Gson gson = new Gson();
 
+        for(Advertisement ad:ads_list) {
+            for (Picture pic:ad.getPictures()) {
+                pic.imageBase64 = getImageBytes(pic.path);
+            }
+        }
+
         String json = gson.toJson(ads_list);
 
         response.getWriter().print(json);
+    }
+
+    private String getImageBytes(String path) throws IOException {
+        return getString(path);
     }
 }

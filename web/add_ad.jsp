@@ -10,7 +10,7 @@
     <head>
         <title>Title</title>
         <script type="text/javascript" src="js/show_map.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFJMPEqo48wJhXN5uBq3qBJGNYAawDU3k&callback=initMap"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFJMPEqo48wJhXN5uBq3qBJGNYAawDU3k&callback=loadMap"></script>
 
     </head>
 

@@ -36,9 +36,9 @@ function get_filtered_ads() {
 
     var filters = {};
 
-    filters['Area'] = document.getElementById('area').value;
-    filters['Type'] = document.getElementById('house_type').value;
-    filters['Size'] = {'lower_bound':size_lower_bound, 'upper_bound':size_upper_bound};
+    filters['area'] = document.getElementById('area').value;
+    filters['type'] = document.getElementById('house_type').value;
+    filters['size'] = {'lower_bound':size_lower_bound, 'upper_bound':size_upper_bound};
 
 
     var xmlHttp = null;
@@ -69,10 +69,15 @@ function addNewAdCard(ad) {
     var ad_li = document.createElement('li');
     var ad_type = document.createElement('h1');
     var ad_description = document.createElement('p');
+    var ad_image = document.createElement('img');
     var view_ad_button = document.createElement('button');
 
     ad_type.id = 'type';
     ad_type.innerHTML = ad['type'];
+
+    ad_image.id = 'image';
+    ad_image.setAttribute('src',"data:image/png;base64,"+ad['pictures'][0]['imageBase64']) ;
+    // document.writeln(ad['pictures'][0]['image_bytes']);
 
     ad_description.id = 'description';
     ad_description.innerHTML = ad['description'];
@@ -85,6 +90,7 @@ function addNewAdCard(ad) {
     ad_li.listStyle = 'none';
 
     ad_li.appendChild(ad_type);
+    ad_li.appendChild(ad_image);
     ad_li.appendChild(ad_description);
     ad_li.appendChild(view_ad_button);
 

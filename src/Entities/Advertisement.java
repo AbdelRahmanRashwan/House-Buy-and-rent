@@ -1,5 +1,8 @@
 package Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Advertisement {
     private int id;
     private int size;
@@ -11,6 +14,7 @@ public class Advertisement {
     private String status;
     private String area;
     private String type;
+    private List<Picture> pictures;
     private boolean suspend;
     private User user;
 
@@ -108,5 +112,13 @@ public class Advertisement {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
     }
 }
