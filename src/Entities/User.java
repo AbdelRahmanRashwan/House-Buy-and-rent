@@ -15,6 +15,15 @@ public class User {
 	private Preferences preferences;
 	private List<Advertisement> advertisements;
 
+	public User(int id, String name, String email, String phone, String address, String password) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.password = password;
+	}
+
 	public User() {
 		this.setAdvertisements(new ArrayList<Advertisement>());
 	}

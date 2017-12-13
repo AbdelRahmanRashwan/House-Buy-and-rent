@@ -14,7 +14,7 @@ import Entities.User;
 public class AdvertisementModel extends Model<Advertisement> {
 
 	@Override
-	Advertisement select(int id) {
+	public Advertisement select(int id) {
 		Connection c =DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE Id=?;");
@@ -34,7 +34,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	List<Advertisement> selectAll() {
+    public List<Advertisement> selectAll() {
         Connection c =DBConnection.getConn();
         try {
             ResultSet res  =c.prepareStatement("SELECT * FROM advertisement;").executeQuery();
@@ -54,7 +54,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	List<Advertisement> selectWhere(List<String> columns, String where) {
+    public List<Advertisement> selectWhere(List<String> columns, String where) {
         Connection c =DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("SELECT * FROM advertisement WHERE ?;");
@@ -76,7 +76,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	boolean update(Advertisement advertisement) {
+    public boolean update(Advertisement advertisement) {
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("UPDATE advertisement SET houseId = ?, Type = ?, rate = ?,suspend = ? , adOwnerId = ? WHERE Id = ?;");
@@ -84,7 +84,7 @@ public class AdvertisementModel extends Model<Advertisement> {
             p.setString(2,advertisement.getType());
             p.setDouble(3,advertisement.getRate());
             p.setInt(4,advertisement.isSuspended()?1:0);
-            p.setInt(5,advertisement.getUser().getId());
+            p.setInt(5,advertisement.getUser());
             p.setInt(6,advertisement.getId());
 
             return p.executeUpdate()>0;
@@ -96,7 +96,7 @@ public class AdvertisementModel extends Model<Advertisement> {
     }
 
 	@Override
-	boolean delete(int id) {
+    public boolean delete(int id) {
 	    Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("DELETE FROM advertisement WHERE Id=?;");
@@ -110,7 +110,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	}
 
 	@Override
-	boolean insert(Advertisement advertisement) {
+    public boolean insert(Advertisement advertisement) {
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("INSERT into advertisement (houseId,Type,rate,suspend,adOwnerId) values (?,?,?,?,?);");
@@ -118,7 +118,7 @@ public class AdvertisementModel extends Model<Advertisement> {
             p.setString(2,advertisement.getType());
             p.setDouble(3,advertisement.getRate());
             p.setInt(4,advertisement.isSuspended()?1:0);
-            p.setInt(5,advertisement.getUser().getId());
+            p.setInt(5,advertisement.getUser());
             return p.executeUpdate()>0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB insert(AdvertisementModel)");
@@ -126,7 +126,7 @@ public class AdvertisementModel extends Model<Advertisement> {
         }		return false;
 	}
 
-	boolean comment(int adID,int userID,String comment){
+    public boolean comment(int adID,int userID,String comment){
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("INSERT into user_advertisement (userId,AdvertisementId,comment) values (?,?,?);");
@@ -141,7 +141,7 @@ public class AdvertisementModel extends Model<Advertisement> {
 	    return false;
     }
 
-    List<Comment> adComments(int adId){
+    public List<Comment> adComments(int adId){
         Connection c =DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("SELECT * FROM user_advertisement WHERE AdvertisementId=?;");
@@ -173,9 +173,7 @@ public class AdvertisementModel extends Model<Advertisement> {
             ad.setType(res.getString(2));
             ad.setRate(res.getFloat(3));
             ad.setSuspended(res.getInt(4) > 0);
-            UserModel userModel = new UserModel();
-            User user=userModel.select(res.getInt(5));
-            ad.setUser(user);
+            ad.setUser(res.getInt(5));
             return ad;
         } catch (SQLException e) {
             System.out.println("Error not valid column adParser (AdvertisementModel)");

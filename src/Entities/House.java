@@ -16,6 +16,16 @@ public class House {
 	private double latitude;
 	private String area;
 
+	public House(int id, double size, String description, int floor, String status, String type, String area) {
+		this.id = id;
+		this.size = size;
+		this.description = description;
+		this.floor = floor;
+		this.status = status;
+		this.type = type;
+		this.area = area;
+	}
+
 	House() {
 		this.setImages(new ArrayList<File>());
 	}

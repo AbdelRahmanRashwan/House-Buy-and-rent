@@ -4,6 +4,7 @@ import Entities.User;
 import Models.UserModel;
 
 import javax.jms.Session;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,17 +19,22 @@ public class Login extends HttpServlet {
         UserModel userModel = new UserModel();
         User user = userModel.selectByEmailAndPassword(request.getAttribute("email").toString()
                 , request.getAttribute("password").toString());
+//        User user = new User(1, "ahmed", "ahmed@hamada","01141118545","hamada st","sayed");
         if (user == null) {
             request.setAttribute("error", true);
-            response.sendRedirect("login.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+            requestDispatcher.forward(request, response);
         }
         else{
             HttpSession session = request.getSession(true);
+            session.setAttribute("id", user.getId());
             session.setAttribute("name", user.getName());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("address", user.getAddress());
             session.setAttribute("phone", user.getPhone());
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("index.jsp");
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Profile");
+//            requestDispatcher.forward(request, response);
         }
     }
 

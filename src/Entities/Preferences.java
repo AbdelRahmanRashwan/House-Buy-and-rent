@@ -2,10 +2,30 @@ package Entities;
 
 public class Preferences {
 	private int id;
+	private int userID;
 	private int size;
 	private int floor;
 	private String type;
 	private String area;
+
+	public Preferences(){}
+
+	public Preferences(int id, int userID, int size, int floor, String type, String area) {
+		this.id = id;
+		this.userID = userID;
+		this.size = size;
+		this.floor = floor;
+		this.type = type;
+		this.area = area;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 
 	public int getId() {
 		return id;

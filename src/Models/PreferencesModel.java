@@ -12,7 +12,7 @@ import Entities.Preferences;
 public class PreferencesModel extends Model<Preferences> {
 
 	@Override
-	Preferences select(int id) {
+	public Preferences select(int id) {
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("SELECT * FROM prefrence WHERE Id=?;");
@@ -31,8 +31,27 @@ public class PreferencesModel extends Model<Preferences> {
         return null;
     }
 
+    public Preferences selectByUserID(int id) {
+        Connection c = DBConnection.getConn();
+        try {
+            PreparedStatement p = c.prepareStatement("SELECT * FROM prefrence WHERE userID=?;");
+            p.setInt(1, id);
+            ResultSet res = p.executeQuery();
+            if (!res.next()) {
+                System.out.println("No Records Found");
+                return null;
+            }
+            return parse(res);
+
+        } catch (SQLException e) {
+            System.out.println("Error connecting to DB select (PreferencesModel)");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 	@Override
-	List<Preferences> selectAll() {
+    public List<Preferences> selectAll() {
         Connection c =DBConnection.getConn();
         try {
             ResultSet res  =c.prepareStatement("SELECT * FROM prefrence;").executeQuery();
@@ -50,7 +69,7 @@ public class PreferencesModel extends Model<Preferences> {
 	}
 
 	@Override
-	List<Preferences> selectWhere(List<String> columns, String where) {
+    public List<Preferences> selectWhere(List<String> columns, String where) {
         Connection c =DBConnection.getConn();
         try {
             PreparedStatement p =c.prepareStatement("SELECT * FROM prefrence WHERE ?;");
@@ -72,15 +91,15 @@ public class PreferencesModel extends Model<Preferences> {
 	}
 
 	@Override
-	boolean update(Preferences preferences) {
+    public boolean update(Preferences preferences) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("UPDATE `prefrence` SET `Type`=?,`size`=?,`area`=?,`Floor`=? WHERE Id=?");
+            PreparedStatement p = c.prepareStatement("UPDATE `prefrence` SET `Type`=?,`size`=?,`area`=?,`Floor`=? WHERE userID=?");
             p.setString(1,preferences.getType());
             p.setInt(2,preferences.getSize());
             p.setString(3,preferences.getArea());
             p.setInt(4,preferences.getFloor());
-            p.setInt(5,preferences.getId());
+            p.setInt(5,preferences.getUserID());
 
             return p.executeUpdate()>0;
         } catch (SQLException e) {
@@ -90,7 +109,7 @@ public class PreferencesModel extends Model<Preferences> {
 	}
 
 	@Override
-	boolean delete(int id) {
+    public boolean delete(int id) {
         Connection c = DBConnection.getConn();
         try {
             PreparedStatement p = c.prepareStatement("DELETE FROM prefrence WHERE Id=?;");
@@ -104,14 +123,15 @@ public class PreferencesModel extends Model<Preferences> {
 	}
 
 	@Override
-	boolean insert(Preferences preferences) {
+    public boolean insert(Preferences preferences) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("INSERT INTO `prefrence`( `Type`, `size`, `area`, `Floor`) VALUES  (?,?,?,?)");
+            PreparedStatement p = c.prepareStatement("INSERT INTO `prefrence`( `Type`, `size`, `area`, `Floor`, `userID`) VALUES  (?,?,?,?,?)");
             p.setString(1,preferences.getType());
             p.setInt(2,preferences.getSize());
             p.setString(3,preferences.getArea());
             p.setInt(4,preferences.getFloor());
+            p.setInt(4,preferences.getUserID());
 
             return p.executeUpdate()>0;
         } catch (SQLException e) {

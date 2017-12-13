@@ -12,30 +12,30 @@ import Entities.User;
 
 public class UserModel extends Model<User> {
 
-	public User selectByEmail(String email) {
+	public boolean selectByEmail(String email) {
         Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Email=?;");
+            PreparedStatement p =c.prepareStatement("SELECT * FROM theUser WHERE Email=?;");
             p.setString(1,email);
             ResultSet res = p.executeQuery();
             if(!res.next()){
                 System.out.println("No Records Found");
-                return null;
+                return false;
             }
-            return parse(res);
+            return true;
 
         } catch (SQLException e) {
             System.out.println("Error connecting to DB select (UserModel)");
             e.printStackTrace();
         }
-        return null;
+        return false;
 	}
 
     public User selectByEmailAndPassword(String email,String password) {
 
         Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Email=? AND  password=?;");
+            PreparedStatement p =c.prepareStatement("SELECT * FROM theUser WHERE Email=? AND  password=?;");
             p.setString(1,email);
             p.setString(2,password);
             ResultSet res = p.executeQuery();
@@ -56,7 +56,7 @@ public class UserModel extends Model<User> {
     public User select(int id) {
         Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE Id=?;");
+            PreparedStatement p =c.prepareStatement("SELECT * FROM theUser WHERE Id=?;");
             p.setInt(1,id);
             ResultSet res = p.executeQuery();
             if(!res.next()){
@@ -76,7 +76,7 @@ public class UserModel extends Model<User> {
     public List<User> selectAll() {
         Connection c =DBConnection.getConn();
         try {
-            ResultSet res  =c.prepareStatement("SELECT * FROM user;").executeQuery();
+            ResultSet res  =c.prepareStatement("SELECT * FROM theUser;").executeQuery();
 
             ArrayList<User> users=new ArrayList<>();
 
@@ -96,7 +96,7 @@ public class UserModel extends Model<User> {
     public List<User> selectWhere(List<String> columns, String where) {
         Connection c =DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("SELECT * FROM user WHERE ?;");
+            PreparedStatement p =c.prepareStatement("SELECT * FROM theUser WHERE ?;");
             p.setString(1,where);
             ResultSet res = p.executeQuery();
 
@@ -118,7 +118,7 @@ public class UserModel extends Model<User> {
     public boolean update(User user) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p =c.prepareStatement("UPDATE `*user` SET `Name`=?,`Email`=?,`Phone`=?,`address`=?,`password`=?,`picPath`=?,`PrefrencesId`=? WHERE `Id`=?");
+            PreparedStatement p =c.prepareStatement("UPDATE theUser SET `Name`=?,`Email`=?,`Phone`=?,`address`=?,`password`=?,`picPath`=?,`PrefrencesId`=? WHERE `Id`=?");
             p.setString(1,user.getName());
             p.setString(2,user.getEmail());
             p.setString(3,user.getPhone());
@@ -141,7 +141,7 @@ public class UserModel extends Model<User> {
 
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("DELETE FROM user WHERE Id=?;");
+            PreparedStatement p = c.prepareStatement("DELETE FROM theUser WHERE Id=?;");
             p.setInt(1,id);
             return p.executeUpdate()>0;
         } catch (SQLException e) {
@@ -154,7 +154,7 @@ public class UserModel extends Model<User> {
     public boolean delete(String email) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("DELETE FROM user WHERE Email=?;");
+            PreparedStatement p = c.prepareStatement("DELETE FROM theUser WHERE Email=?;");
             p.setString(1,email);
             return p.executeUpdate()>0;
         } catch (SQLException e) {
@@ -168,7 +168,7 @@ public class UserModel extends Model<User> {
     public boolean insert(User user) {
         Connection c = DBConnection.getConn();
         try {
-            PreparedStatement p = c.prepareStatement("INSERT INTO `*user`(`Name`, `Email`, `Phone`, `address`, `password`, `picPath`, `PrefrencesId`) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement p = c.prepareStatement("INSERT INTO theUser(`Name`, `Email`, `Phone`, `address`, `password`, `picPath`, `PrefrencesId`) VALUES (?,?,?,?,?,?,?)");
             p.setString(1,user.getName());
             p.setString(2,user.getEmail());
             p.setString(3,user.getPhone());

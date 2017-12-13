@@ -3,13 +3,19 @@ package Entities;
 public class Advertisement {
 	private int id;
 	private House house;
-	private User user;
+	private int userID;
 	private String type;
 	private boolean isSuspended;
 	private double rate;
 
+	public Advertisement(int id, House house, int userID, String type) {
+		this.id = id;
+		this.house = house;
+		this.userID = userID;
+		this.type = type;
+	}
+
 	public Advertisement(){
-		this.user = new User();
 		this.house = new House();
 	}
 
@@ -29,12 +35,12 @@ public class Advertisement {
 		this.house = house;
 	}
 
-	public User getUser() {
-		return user;
+	public int getUser() {
+		return userID;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(int userID) {
+		this.userID = userID;
 	}
 
 	public String getType() {
