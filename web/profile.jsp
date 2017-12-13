@@ -8,27 +8,33 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-    <h1><% out.print(request.getSession().getAttribute("name")); %></h1>
-    <h1><% out.print(request.getSession().getAttribute("email")); %></h1>
-    <h1><% out.print(request.getSession().getAttribute("phone")); %></h1>
-    <h1><% out.print(request.getSession().getAttribute("address")); %></h1>
-    <a href="editProfile.jsp"><button >Edit Profile</button></a>
-    <a href="addPreferences.jsp"><button onclick="addPreferences.jsp">edit preference</button></a>
+    <head>
+        <title>Title</title>
+    </head>
 
-    <%
-        List<Advertisement> advertisements = (List<Advertisement>) request.getAttribute("advertisements");
-        for (int i = 0; i < advertisements.size(); i++) {
-            out.print(advertisements.get(i).getType()+"<br>");
-            out.print(advertisements.get(i).getHouse().getArea()+"<br>");
-            out.print(advertisements.get(i).getHouse().getDescription()+"<br>");
-            out.print(advertisements.get(i).getHouse().getFloor()+"<br>");
-            out.print(advertisements.get(i).getHouse().getSize()+"<br>");
-        }
+    <body>
+        <%
+            if(session.getAttribute("name")==null){
+                response.sendRedirect("login.jsp");
+            }
+        %>
+        <h1><% out.print(request.getSession().getAttribute("name")); %></h1>
+        <h1><% out.print(request.getSession().getAttribute("email")); %></h1>
+        <h1><% out.print(request.getSession().getAttribute("phone")); %></h1>
+        <h1><% out.print(request.getSession().getAttribute("address")); %></h1>
+        <a href="editProfile.jsp"><button >Edit Profile</button></a>
+        <a href="addPreferences.jsp"><button onclick="addPreferences.jsp">edit preference</button></a>
 
-    %>
-</body>
+        <%
+            List<Advertisement> advertisements = (List<Advertisement>) request.getAttribute("advertisements");
+            for (int i = 0; i < advertisements.size(); i++) {
+                out.print(advertisements.get(i).getType()+"<br>");
+                out.print(advertisements.get(i).getArea()+"<br>");
+                out.print(advertisements.get(i).getDescription()+"<br>");
+                out.print(advertisements.get(i).getFloor()+"<br>");
+                out.print(advertisements.get(i).getSize()+"<br>");
+            }
+
+        %>
+    </body>
 </html>

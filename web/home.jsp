@@ -14,6 +14,11 @@
     </head>
 
     <body onload="get_all_ads()">
+        <%
+            if(session.getAttribute("name")==null){
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <nav>
             <a href= "" id="logout" class="btn">Logout</a>
             <a href="profile.jsp" id="profile" class="btn">Profile</a>

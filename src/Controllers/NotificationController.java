@@ -34,10 +34,11 @@ public class NotificationController {
         notification.setAdvertisementId(advertisement.getId());
         notification.setDescription("A new advertisement meets your preferences has been added. Advertisement Id:" + advertisement.getId());
         for (int i = 0; i < preferences.size(); i++) {
-            User notifiedUser = preferences.get(i).getUser();
-            notification.setUserId(notifiedUser.getId());
-            notificationModel.insert(notification);
-            notifyByEmail(notifiedUser.getEmail(), advertisement.getId());
+            //TODO::Get User By ID
+//            User notifiedUser = preferences.get(i).getUserID();
+//            notification.setUserId(notifiedUser.getId());
+//            notificationModel.insert(notification);
+//            notifyByEmail(notifiedUser.getEmail(), advertisement.getId());
         }
 
         return true;

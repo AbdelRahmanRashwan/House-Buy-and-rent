@@ -53,7 +53,7 @@ public class    AddAdServlet extends HttpServlet {
             adData = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
             UserModel userModel = new UserModel();
 
-            int user_id= 1;
+            int user_id= Integer.parseInt(current_session.getAttribute("id").toString());
             User user = userModel.select(user_id);
 
             Advertisement ad  = parseAd(adData);
