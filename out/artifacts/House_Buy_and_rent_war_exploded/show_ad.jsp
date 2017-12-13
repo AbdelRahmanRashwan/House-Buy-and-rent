@@ -26,6 +26,9 @@
             <div id="photo_slideshow"></div>
             <h3>Location on map</h3>
             <div id="map" style="width:400px;height:400px"></div>
+            <div class="comments">
+                <input id="comment" type="text" placeholder="Write a comment" onkeypress="comment(event)"/>
+            </div>
         </div>
     </body>
 </html>

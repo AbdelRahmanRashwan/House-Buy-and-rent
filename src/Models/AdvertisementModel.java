@@ -158,7 +158,8 @@ public class AdvertisementModel extends Model<Advertisement> {
             p.setInt(1, userId);
             p.setInt(2, advertisementId);
             p.setString(3, comment);
-            return p.executeUpdate() > 0;
+            System.out.println("Aff "+p.executeUpdate());
+            return true;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB comment (AdvertisementModel)");
             e.printStackTrace();
@@ -173,7 +174,7 @@ public class AdvertisementModel extends Model<Advertisement> {
             ResultSet res = p.executeQuery();
             ArrayList<Comment> comments = new ArrayList<>();
             while (res.next()) {
-                Comment comment = new Comment(res.getInt(0), res.getInt(1), res.getString(2));
+                Comment comment = new Comment(res.getInt(1), res.getInt(2), res.getString(3));
                 comments.add(comment);
             }
             return comments;
@@ -199,6 +200,7 @@ public class AdvertisementModel extends Model<Advertisement> {
             ad.setRate(res.getFloat("rate"));
             ad.setSuspend(res.getInt("suspend") > 0);
             ad.setPictures(getImages(ad.getId()));
+            ad.setComments(adComments(res.getInt("id")));
             UserModel userModel = new UserModel();
 //            User user = userModel.select(res.getInt("user_id"));
 //            ad.setUser(user);

@@ -68,7 +68,6 @@ public class GetFilteredAdsServlet extends HttpServlet {
             if(key.equals("size")) continue;
 
             String val = filters_json.get(key).getAsString();
-            System.out.println(key+" "+val.isEmpty()+" "+val+" "+index+" "+filters_json.size()+" "+query.length());
             if(index < filters_json.size() - 1 && (query.length() > 0) &&!(val.isEmpty()))
                 query.append(" and ");
 
