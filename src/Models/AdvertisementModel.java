@@ -12,7 +12,6 @@ import Entities.Picture;
 import Entities.User;
 
 public class AdvertisementModel extends Model<Advertisement> {
-
     @Override
     public Advertisement select(int id) {
         try {

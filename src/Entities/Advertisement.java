@@ -116,8 +116,7 @@ public class Advertisement {
     }
 
     public List<Picture> getPictures() {
-        return pictures;
-    }
+        return pictures;}
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;

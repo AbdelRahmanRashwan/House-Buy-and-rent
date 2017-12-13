@@ -70,7 +70,7 @@ public class PreferencesModel extends Model<Preferences> {
             p.setInt(2, preferences.getSize());
             p.setString(3, preferences.getArea());
             p.setInt(4, preferences.getFloor());
-            p.setInt(5, preferences.getUser().getId());
+            p.setInt(5, preferences.getUserID());
             p.setInt(5, preferences.getId());
             return p.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -93,7 +93,6 @@ public class PreferencesModel extends Model<Preferences> {
         return false;
     }
 
-
     @Override
     public boolean insert(Preferences preferences) {
         try {
@@ -102,7 +101,7 @@ public class PreferencesModel extends Model<Preferences> {
             p.setInt(2, preferences.getSize());
             p.setString(3, preferences.getArea());
             p.setInt(4, preferences.getFloor());
-            p.setInt(5, preferences.getUser().getId());
+            p.setInt(5, preferences.getUserID());
             return p.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB insert (PreferencesModel)");
@@ -120,14 +119,13 @@ public class PreferencesModel extends Model<Preferences> {
             int size = res.getInt("size");
             int Floor = res.getInt("floor");
             int userId = res.getInt("user_id");
-            User user = userModel.select(userId);
             Preferences preferences = new Preferences();
             preferences.setArea(area);
             preferences.setFloor(Floor);
             preferences.setId(Id);
             preferences.setSize(size);
             preferences.setType(Type);
-            preferences.setUser(user);
+            preferences.setUserID(userId);
             return preferences;
         } catch (SQLException e) {
             e.printStackTrace();

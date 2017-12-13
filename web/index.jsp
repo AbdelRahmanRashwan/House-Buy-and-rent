@@ -11,6 +11,14 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <header></header>
+  <img id="logo" src="../resources/logo.png">
+    <%
+      out.print(request.getSession().getAttribute("name"));
+      out.print(request.getSession().getAttribute("email"));
+      out.print(request.getSession().getAttribute("phone"));
+      out.print(request.getSession().getAttribute("address"));
+    %>
+
   </body>
 </html>
