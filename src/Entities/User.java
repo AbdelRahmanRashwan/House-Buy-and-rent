@@ -5,89 +5,99 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private int id;
-    private String name;
-    private String email;
-    private String phone;
-    private String address;
-    private String password;
-    private File picture;
-    private Preferences preferences;
-    private List<Advertisement> advertisements;
+	private int id;
+	private String name;
+	private String email;
+	private String phone;
+	private String address;
+	private String password;
+	private File picture;
+	private Preferences preferences;
+	private List<Advertisement> advertisements;
 
-    public User() {
-        this.setAdvertisements(new ArrayList<Advertisement>());
-    }
+	public User(int id, String name, String email, String phone, String address, String password) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.password = password;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public User() {
+		this.setAdvertisements(new ArrayList<Advertisement>());
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public File getPicture() {
-        return picture;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPicture(File picture) {
-        this.picture = picture;
-    }
+	public File getPicture() {
+		return picture;
+	}
 
-    public Preferences getPreferences() {
-        return preferences;
-    }
+	public void setPicture(File picture) {
+		this.picture = picture;
+	}
 
-    public void setPreferences(Preferences preferences) {
-        this.preferences = preferences;
-    }
+	public Preferences getPreferences() {
+		return preferences;
+	}
 
-    public List<Advertisement> getAdvertisements() {
-        return advertisements;
-    }
+	public void setPreferences(Preferences preferences) {
+		this.preferences = preferences;
+	}
 
-    public void setAdvertisements(List<Advertisement> advertisements) {
-        this.advertisements = advertisements;
-    }
+	public List<Advertisement> getAdvertisements() {
+		return advertisements;
+	}
+
+	public void setAdvertisements(List<Advertisement> advertisements) {
+		this.advertisements = advertisements;
+	}
+
 }
