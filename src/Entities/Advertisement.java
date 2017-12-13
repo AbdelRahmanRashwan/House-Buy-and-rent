@@ -1,70 +1,123 @@
 package Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Advertisement {
-	private int id;
-	private House house;
-	private int userID;
-	private String type;
-	private boolean isSuspended;
-	private double rate;
+    private int id;
+    private int size;
+    private int floor;
+    private double rate;
+    private double longitude;
+    private double latitude;
+    private String description;
+    private String status;
+    private String area;
+    private String type;
+    private List<Picture> pictures;
+    private boolean suspend;
+    private User user;
 
-	public Advertisement(int id, House house, int userID, String type) {
-		this.id = id;
-		this.house = house;
-		this.userID = userID;
-		this.type = type;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public Advertisement(){
-		this.house = new House();
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	public House getHouse() {
-		return house;
-	}
+    public int getFloor() {
+        return floor;
+    }
 
-	public void setHouse(House house) {
-		this.house = house;
-	}
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
 
-	public int getUser() {
-		return userID;
-	}
+    public double getRate() {
+        return rate;
+    }
 
-	public void setUser(int userID) {
-		this.userID = userID;
-	}
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public double getLongitude() {
+        return longitude;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
-	public boolean isSuspended() {
-		return isSuspended;
-	}
+    public double getLatitude() {
+        return latitude;
+    }
 
-	public void setSuspended(boolean suspended) {
-		isSuspended = suspended;
-	}
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
-	public double getRate() {
-		return rate;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isSuspend() {
+        return suspend;
+    }
+
+    public void setSuspend(boolean suspend) {
+        this.suspend = suspend;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Picture> getPictures() {
+        return pictures;}
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
+    }
 }

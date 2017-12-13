@@ -99,4 +99,5 @@ public class User {
 	public void setAdvertisements(List<Advertisement> advertisements) {
 		this.advertisements = advertisements;
 	}
+
 }
