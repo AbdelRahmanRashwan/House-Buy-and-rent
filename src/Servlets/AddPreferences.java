@@ -25,7 +25,8 @@ public class AddPreferences extends HttpServlet {
         preferences.setUserID((Integer) request.getSession().getAttribute("id"));
 
         PreferencesModel preferencesModel = new PreferencesModel();
-        if (preferencesModel.selectByUserID(preferences.getUserID()) != null){
+        int user_id = Integer.parseInt(request.getSession().getAttribute("id").toString());
+        if (preferencesModel.selectWhere("*","id = "+user_id).get(0) != null){
             preferencesModel.update(preferences);
             ((Preferences)request.getSession().getAttribute("preferences")).setArea((String) request.getAttribute("area"));
             ((Preferences)request.getSession().getAttribute("preferences")).setFloor((int) request.getAttribute("floor"));

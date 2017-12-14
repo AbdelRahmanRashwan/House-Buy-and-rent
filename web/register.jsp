@@ -14,7 +14,7 @@
 <body>
 
 <div id='MainContainer'>
-    <a href='home.php'><img src='resources/logo.png' id='logo'></a>
+    <a href='home.jsp'><img src='resources/logo.png' id='logo'></a>
     <form action='Register' method='post'>
         <input name='name' placeholder='Name' required>
         <input type='email' name='email' placeholder='Email' required>

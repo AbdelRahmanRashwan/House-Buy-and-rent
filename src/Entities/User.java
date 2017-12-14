@@ -11,7 +11,7 @@ public class User {
 	private String phone;
 	private String address;
 	private String password;
-	private File picture;
+	private Picture picture;
 	private Preferences preferences;
 	private List<Advertisement> advertisements;
 
@@ -76,11 +76,11 @@ public class User {
 		this.password = password;
 	}
 
-	public File getPicture() {
+	public Picture getPicture() {
 		return picture;
 	}
 
-	public void setPicture(File picture) {
+	public void setPicture(Picture picture) {
 		this.picture = picture;
 	}
 

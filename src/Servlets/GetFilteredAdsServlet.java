@@ -102,7 +102,6 @@ public class GetFilteredAdsServlet extends HttpServlet {
     }
 
     static String getString(String path) throws IOException {
-        path = "/home/ahmed/test.png";
         System.out.println(path);
         File image = new File(path);
         FileInputStream in = new FileInputStream(image);
