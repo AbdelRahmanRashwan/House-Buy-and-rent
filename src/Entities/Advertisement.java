@@ -15,6 +15,7 @@ public class Advertisement {
     private String area;
     private String type;
     private List<Picture> pictures;
+    private List<Comment> comments;
     private boolean suspend;
     private User user;
 
@@ -119,5 +120,13 @@ public class Advertisement {
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

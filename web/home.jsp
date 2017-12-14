@@ -14,8 +14,13 @@
     </head>
 
     <body onload="get_all_ads()">
+        <%
+            if(session.getAttribute("name")==null){
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <nav>
-            <a href= "" id="logout" class="btn">Logout</a>
+            <a href="" id="logout" class="btn" onclick="logout()">Logout</a>
             <a href="profile.jsp" id="profile" class="btn">Profile</a>
             <a href="notifications.jsp" class="btn">Notifications</a>
             <a href="add_ad.jsp" id="new_ad" class="btn">Add new ad</a>
@@ -52,5 +57,11 @@
                 <%--<input id="lat" name="lat"/>--%>
             <%--</form>--%>
         </div>
+        <script type="text/javascript">
+            function logout(){
+                '<%session.setAttribute("id",null);%>';
+                '<%session.setAttribute("name",null);%>';
+            }
+        </script>
     </body>
 </html>

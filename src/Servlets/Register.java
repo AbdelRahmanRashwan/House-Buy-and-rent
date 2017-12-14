@@ -1,5 +1,6 @@
 package Servlets;
 
+import Entities.Picture;
 import Entities.User;
 import Models.UserModel;
 
@@ -17,14 +18,15 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         UserModel userModel = new UserModel();
-        if (userModel.selectByEmail(email) == false){
+        if (userModel.selectWhere("*","email = '"+email+"'").size() == 0){
             User user = new User();
             user.setName(request.getParameter("name"));
             user.setEmail(email);
             user.setPassword(request.getParameter("password"));
             user.setAddress(request.getParameter("address"));
             user.setPhone(request.getParameter("phone"));
-            userModel.insert(user);
+            user.setPicture(new Picture("test","test"));
+            System.out.println(userModel.insert(user));
             HttpSession session = request.getSession(true);
             session.setAttribute("id", user.getId());
             session.setAttribute("name", user.getName());

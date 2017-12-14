@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entities.Picture;
 import Entities.User;
 
 public class UserModel extends Model<User> {
@@ -72,7 +73,7 @@ public class UserModel extends Model<User> {
             p.setString(3, user.getPhone());
             p.setString(4, user.getAddress());
             p.setString(5, user.getPassword());
-            p.setString(6, user.getPicture().getAbsolutePath());
+            p.setString(6, user.getPicture().path);
             p.setInt(7, user.getId());
             return p.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -117,7 +118,7 @@ public class UserModel extends Model<User> {
             p.setString(3, user.getPhone());
             p.setString(4, user.getAddress());
             p.setString(5, user.getPassword());
-            p.setString(6, user.getPicture().getAbsolutePath());
+            p.setString(6, user.getPicture().path);
             return p.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB insert (UserModel)");
@@ -136,7 +137,7 @@ public class UserModel extends Model<User> {
             user.setEmail(set.getString("email"));
             user.setPassword(set.getString("password"));
             user.setPhone(set.getString("phone"));
-            user.setPicture(new File(set.getString("picture_path")));
+            user.setPicture(new Picture(set.getString("picture_path"),""));
             AdvertisementModel advertisementModel = new AdvertisementModel();
             user.setAdvertisements(advertisementModel.selectWhere("*", "user_id = " + user_id));
             return user;

@@ -15,6 +15,11 @@
     </head>
 
     <body>
+        <%
+            if(session.getAttribute("name")==null){
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <form action="AddAdServlet" method="post"  encType="multipart/form-data">
             <input name="type" type="text" placeholder="Type" required/><br>
             <input name="space" type="number" placeholder="Space" required/><br>

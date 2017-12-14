@@ -15,8 +15,11 @@
     </head>
 
     <%
+        if(session.getAttribute("name")==null){
+            response.sendRedirect("login.jsp");
+        }
         int ad_id = Integer.parseInt(request.getParameter("id"));
-        String user_id = "1";
+        int user_id = Integer.parseInt(session.getAttribute("id").toString());
     %>
     <body onload="get_ad(<%=ad_id%>,<%=user_id%>)">
         <div id="ad">
@@ -26,6 +29,9 @@
             <div id="photo_slideshow"></div>
             <h3>Location on map</h3>
             <div id="map" style="width:400px;height:400px"></div>
+            <div class="comments">
+                <input id="comment" type="text" placeholder="Write a comment" onkeypress="comment(event)"/>
+            </div>
         </div>
     </body>
 </html>

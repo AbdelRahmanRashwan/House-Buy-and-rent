@@ -17,8 +17,10 @@ import java.io.IOException;
 public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserModel userModel = new UserModel();
-        User user = userModel.selectByEmailAndPassword(request.getAttribute("email").toString()
-                , request.getAttribute("password").toString());
+        System.out.println(request.getParameter("email"));
+        System.out.println(request.getParameter("password"));
+        User user = userModel.selectByEmailAndPassword(request.getParameter("email")
+                , request.getParameter("password"));
 //        User user = new User(1, "ahmed", "ahmed@hamada","01141118545","hamada st","sayed");
         if (user == null) {
             request.setAttribute("error", true);

@@ -1,7 +1,6 @@
 package Servlets;
 
 import Entities.Advertisement;
-import Entities.House;
 import Entities.Preferences;
 import Models.AdvertisementModel;
 import Models.PreferencesModel;
@@ -20,7 +19,8 @@ import java.util.List;
 public class Profile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PreferencesModel preferencesModel = new PreferencesModel();
-        Preferences preferences = preferencesModel.selectByUserID((Integer) request.getSession().getAttribute("id"));
+        int user_id = Integer.parseInt(request.getSession().getAttribute("id").toString());
+        Preferences preferences = preferencesModel.selectWhere("*","id = "+user_id).get(0);
         AdvertisementModel advertisementModel = new AdvertisementModel();
         List<Advertisement> advertisements = advertisementModel.selectWhere(null,
                 "userID = "+(int)request.getSession().getAttribute("userID"));

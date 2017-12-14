@@ -6,6 +6,7 @@ import Entities.Preferences;
 import Entities.User;
 import Models.NotificationModel;
 import Models.PreferencesModel;
+import Models.UserModel;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -34,7 +35,8 @@ public class NotificationController {
         notification.setAdvertisementId(advertisement.getId());
         notification.setDescription("A new advertisement meets your preferences has been added. Advertisement Id:" + advertisement.getId());
         for (int i = 0; i < preferences.size(); i++) {
-            User notifiedUser = preferences.get(i).getUser();
+            UserModel user_model = new UserModel();
+            User notifiedUser = user_model.select(preferences.get(i).getUserID());
             notification.setUserId(notifiedUser.getId());
             notificationModel.insert(notification);
             notifyByEmail(notifiedUser.getEmail(), advertisement.getId());

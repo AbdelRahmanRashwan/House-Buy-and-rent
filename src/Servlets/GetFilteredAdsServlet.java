@@ -68,7 +68,6 @@ public class GetFilteredAdsServlet extends HttpServlet {
             if(key.equals("size")) continue;
 
             String val = filters_json.get(key).getAsString();
-            System.out.println(key+" "+val.isEmpty()+" "+val+" "+index+" "+filters_json.size()+" "+query.length());
             if(index < filters_json.size() - 1 && (query.length() > 0) &&!(val.isEmpty()))
                 query.append(" and ");
 
@@ -103,7 +102,6 @@ public class GetFilteredAdsServlet extends HttpServlet {
     }
 
     static String getString(String path) throws IOException {
-        path = "/home/ahmed/test.png";
         System.out.println(path);
         File image = new File(path);
         FileInputStream in = new FileInputStream(image);

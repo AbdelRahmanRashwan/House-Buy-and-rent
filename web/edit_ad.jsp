@@ -15,8 +15,11 @@
     </head>
 
     <%
+        if(session.getAttribute("name")==null){
+            response.sendRedirect("login.jsp");
+        }
         int ad_id = Integer.parseInt(request.getParameter("id"));
-        int user_id = 1;
+        int user_id = Integer.parseInt(session.getAttribute("id").toString());
     %>
 
     <body onload="get_ad(<%=ad_id%>,<%=user_id%>)">
