@@ -10,21 +10,41 @@
     <head>
         <title>Home</title>
         <script type="text/javascript" src="js/ajax_load_ads.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/show_notifications.js"></script>
+        <script src="js/navbar.js"></script>
+
         <link rel="stylesheet" type="text/css" href="Style/home.css"/>
+        <link rel="stylesheet" type="text/css" href="Style/navbar.css"/>
     </head>
 
-    <body onload="get_all_ads()">
-        <%
-            if(session.getAttribute("name")==null){
-                response.sendRedirect("login.jsp");
-            }
-        %>
+    <%
+        if(session.getAttribute("name")==null){
+            response.sendRedirect("login.jsp");
+        }
+    %>
+    <body onload="get_all_ads(); get_notifications(<%=session.getAttribute("id")%>)">
         <nav>
-            <a href="" id="logout" class="btn" onclick="logout()">Logout</a>
-            <a href="profile.jsp" id="profile" class="btn">Profile</a>
-            <a href="notifications.jsp" class="btn">Notifications</a>
-            <a href="add_ad.jsp" id="new_ad" class="btn">Add new ad</a>
+            <ul class="nav">
+                <li><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
+                <li><a href="profile.jsp" id="profile" class="nav_btn">Profile</a></li>
+                <li id="noti_Container">
+                    <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+
+                    <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                    <div id="noti_Button"></div>
+
+                    <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                    <div id="notifications">
+                        <h3>Notifications</h3>
+                        <ul id="notifications_container" style="height:300px;"></ul>
+                        <div class="seeAll"><a href="#" class="nav_btn">See All</a></div>
+                    </div>
+                </li>
+                <li><a href="add_ad.jsp" id="new_ad" class="nav_btn">Add new ad</a></li>
+            </ul>
         </nav>
+
         <div class="container">
             <div class="ads left">
                 <ul id="ads_list">
@@ -57,11 +77,5 @@
                 <%--<input id="lat" name="lat"/>--%>
             <%--</form>--%>
         </div>
-        <script type="text/javascript">
-            function logout(){
-                '<%session.setAttribute("id",null);%>';
-                '<%session.setAttribute("name",null);%>';
-            }
-        </script>
     </body>
 </html>

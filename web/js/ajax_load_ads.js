@@ -48,7 +48,6 @@ function get_filtered_ads() {
     }else if (window.ActiveXObject) { // IE
         xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-
     xmlHttp.open("POST", strURL);
     xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlHttp.onreadystatechange=function(){processRequest(xmlHttp);};

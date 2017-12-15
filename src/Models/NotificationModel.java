@@ -49,7 +49,6 @@ public class NotificationModel extends Model<Notification> {
     public List<Notification> selectWhere(String columns, String where) {
         try {
             PreparedStatement p = conn.prepareStatement("SELECT " + columns + " FROM notification WHERE " + where + ";");
-            p.setString(1, where);
             ResultSet res = p.executeQuery();
             ArrayList<Notification> notifications = new ArrayList<>();
             while (res.next()) {

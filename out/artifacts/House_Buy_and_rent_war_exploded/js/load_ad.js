@@ -26,7 +26,10 @@ function processRequest(xmlHttp) {
         // document.writeln("before parsing");
         ads = JSON.parse(ads_json);
 
+        if(ads[0] == null)
+            document.writeln("Whoops, looks like something went wrong.");
         //Update the HTML
-        updateHTML(ads[0]);
+        else
+            updateHTML(ads[0]);
     }
 }
