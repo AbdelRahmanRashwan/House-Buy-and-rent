@@ -32,21 +32,14 @@ public class EditAdServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         List<FileItem> adData = null;
         try {
-            System.out.println(1);
             adData = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-            System.out.println(2);
             Advertisement ad  = parseAd(adData);
-            System.out.println(3);
             if(ads_model.update(ad)){
-                System.out.println(4);
                 ad.setId(ad.getId());
-                System.out.println(5);
                 NotificationController notificationController = new NotificationController();
-                System.out.println(6);
                 notificationController.notify(ad);
-                System.out.println(7);
 
-                out.print("success");
+                response.sendRedirect("home.jsp");
             }else{
                 out.print("fail");
             }
