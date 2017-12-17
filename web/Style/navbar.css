@@ -6,19 +6,19 @@
     padding:12px 10px;
     height:21px;
 }
-.nav li {
+.nav .nav_item {
     float:left;
     font:13px helvetica;
     font-weight:bold;
     margin:3px 0;
 }
-.nav li .nav_btn {
+.nav .nav_item .nav_btn {
     color:#FFF;
     text-decoration:none;
     padding:6px 15px;
     cursor:pointer;
 }
-.nav li .nav_btn:hover {
+.nav .nav_item .nav_btn:hover {
     background:#425B90;
     text-decoration:none;
     cursor:pointer;

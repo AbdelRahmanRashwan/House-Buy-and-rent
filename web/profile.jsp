@@ -18,23 +18,23 @@
                 response.sendRedirect("login.jsp");
             }
         %>
-        <h1><% out.print(request.getSession().getAttribute("name")); %></h1>
-        <h1><% out.print(request.getSession().getAttribute("email")); %></h1>
-        <h1><% out.print(request.getSession().getAttribute("phone")); %></h1>
-        <h1><% out.print(request.getSession().getAttribute("address")); %></h1>
+        <h1><% out.print(session.getAttribute("name")); %></h1>
+        <h1><% out.print(session.getAttribute("email")); %></h1>
+        <h1><% out.print(session.getAttribute("phone")); %></h1>
+        <h1><% out.print(session.getAttribute("address")); %></h1>
         <a href="editProfile.jsp"><button >Edit Profile</button></a>
         <a href="addPreferences.jsp"><button onclick="addPreferences.jsp">edit preference</button></a>
 
-        <%
-            List<Advertisement> advertisements = (List<Advertisement>) request.getAttribute("advertisements");
-            for (int i = 0; i < advertisements.size(); i++) {
-                out.print(advertisements.get(i).getType()+"<br>");
-                out.print(advertisements.get(i).getArea()+"<br>");
-                out.print(advertisements.get(i).getDescription()+"<br>");
-                out.print(advertisements.get(i).getFloor()+"<br>");
-                out.print(advertisements.get(i).getSize()+"<br>");
-            }
+        <%--<%--%>
+            <%--List<Advertisement> advertisements = (List<Advertisement>) request.getAttribute("advertisements");--%>
+            <%--for (int i = 0; i < advertisements.size(); i++) {--%>
+                <%--out.print(advertisements.get(i).getType()+"<br>");--%>
+                <%--out.print(advertisements.get(i).getArea()+"<br>");--%>
+                <%--out.print(advertisements.get(i).getDescription()+"<br>");--%>
+                <%--out.print(advertisements.get(i).getFloor()+"<br>");--%>
+                <%--out.print(advertisements.get(i).getSize()+"<br>");--%>
+            <%--}--%>
 
-        %>
+        <%--%>--%>
     </body>
 </html>

@@ -138,8 +138,8 @@ public class UserModel extends Model<User> {
             user.setPassword(set.getString("password"));
             user.setPhone(set.getString("phone"));
             user.setPicture(new Picture(set.getString("picture_path"),""));
-            AdvertisementModel advertisementModel = new AdvertisementModel();
-            user.setAdvertisements(advertisementModel.selectWhere("*", "user_id = " + user_id));
+//            AdvertisementModel advertisementModel = new AdvertisementModel();
+//            user.setAdvertisements(advertisementModel.selectWhere("*", "user_id = " + user_id));
             return user;
         } catch (SQLException e) {
             System.out.println("Error not valid column Parse (UserModel)");

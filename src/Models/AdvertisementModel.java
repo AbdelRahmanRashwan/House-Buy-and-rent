@@ -172,8 +172,11 @@ public class AdvertisementModel extends Model<Advertisement> {
             p.setInt(1, adId);
             ResultSet res = p.executeQuery();
             ArrayList<Comment> comments = new ArrayList<>();
+            UserModel userModel = new UserModel();
+
             while (res.next()) {
-                Comment comment = new Comment(res.getInt(1), res.getInt(2), res.getString(3));
+                User user = userModel.select(res.getInt(1));
+                Comment comment = new Comment(user.getName(), res.getInt(2), res.getString(3));
                 comments.add(comment);
             }
             return comments;
@@ -201,8 +204,8 @@ public class AdvertisementModel extends Model<Advertisement> {
             ad.setPictures(getImages(ad.getId()));
             ad.setComments(adComments(res.getInt("id")));
             UserModel userModel = new UserModel();
-//            User user = userModel.select(res.getInt("user_id"));
-//            ad.setUser(user);
+            User user = userModel.select(res.getInt("user_id"));
+            ad.setUser(user);
 
             System.out.println(ad.getType()+" "+ad.getId()+" "+ad.getRate());
             return ad;

@@ -26,9 +26,9 @@
     <body onload="get_all_ads(); get_notifications(<%=session.getAttribute("id")%>)">
         <nav>
             <ul class="nav">
-                <li><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
-                <li><a href="profile.jsp" id="profile" class="nav_btn">Profile</a></li>
-                <li id="noti_Container">
+                <li class="nav_item"><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
+                <li class="nav_item"><a href="profile.jsp" id="profile" class="nav_btn">Profile</a></li>
+                <li class="nav_item" id="noti_Container">
                     <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
 
                     <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
@@ -41,7 +41,7 @@
                         <div class="seeAll"><a href="#" class="nav_btn">See All</a></div>
                     </div>
                 </li>
-                <li><a href="add_ad.jsp" id="new_ad" class="nav_btn">Add new ad</a></li>
+                <li class="nav_item"><a href="add_ad.jsp" id="new_ad" class="nav_btn">Add new ad</a></li>
             </ul>
         </nav>
 

@@ -20,8 +20,9 @@
         }
         int ad_id = Integer.parseInt(request.getParameter("id"));
         int user_id = Integer.parseInt(session.getAttribute("id").toString());
+        String user_name = session.getAttribute("name").toString();
     %>
-    <body onload="get_ad(<%=ad_id%>,<%=user_id%>)">
+    <body onload="get_ad(<%=ad_id%>,<%=user_id%>,'<%=user_name%>')">
         <div id="ad">
             <h2 id="house_type"></h2>
             <p id="description"></p>

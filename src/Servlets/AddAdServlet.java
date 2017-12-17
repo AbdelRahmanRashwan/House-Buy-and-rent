@@ -64,13 +64,13 @@ public class    AddAdServlet extends HttpServlet {
             ad.setUser(user);
 
             if(ads_model.insert(ad)){
-
-                int ad_id = ads_model.selectWhere("*","user_id = "+user_id).get(0).getId();
+                List<Advertisement> ads = ads_model.selectWhere("*","user_id = "+user_id);
+                int ad_id = ads.get(ads.size()-1).getId();
                 ad.setId(ad_id);
 
                 notificationController.notify(ad);
 
-                out.print("success");
+                response.sendRedirect("home.jsp");
             }else{
                 out.print("fail");
             }

@@ -1,22 +1,22 @@
 package Entities;
 
 public class Comment {
-    private int userId;
+    private String userName;
     private int advertisementId;
     private String comment;
 
-    public Comment(int userId, int advertisementId, String comment) {
-        this.userId = userId;
+    public Comment(String userName, int advertisementId, String comment) {
+        this.userName = userName;
         this.advertisementId = advertisementId;
         this.comment = comment;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getAdvertisementId() {

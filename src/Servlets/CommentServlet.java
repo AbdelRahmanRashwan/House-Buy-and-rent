@@ -33,12 +33,9 @@ public class CommentServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         int ad_id = comment_json.get("id").getAsInt();
-        int user_id = 1; // till rashwan sends his part
-//        int user_id = Integer.parseInt(session.getAttribute("id").toString());
+        int user_id = Integer.parseInt(session.getAttribute("id").toString());
 
-        System.out.println("eh b2a 1");
         if(ads_model.comment(ad_id, user_id, comment_val)){
-            System.out.println("eh b2a 2");
             response.getWriter().print("success");
         }else{
             response.getWriter().print("fail");
