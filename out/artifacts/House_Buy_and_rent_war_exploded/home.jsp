@@ -20,8 +20,9 @@
 
     <%
         if(session.getAttribute("name")==null){
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("register.jsp");
         }
+        String user_type = session.getAttribute("type").toString();
     %>
     <body onload="get_all_ads(); get_notifications(<%=session.getAttribute("id")%>)">
         <nav>
@@ -43,7 +44,15 @@
                         <div class="seeAll"><a href="#" class="nav_btn">See All</a></div>
                     </div>
                 </li>
+                <%
+                    if(user_type.equals("admin")){
+                %>
+                <li class="nav_item"><a href="suspendedAds.jsp" id="suspended_ads" class="nav_btn">Suspended ads</a></li>
+                <%
+                    } else{
+                %>
                 <li class="nav_item"><a href="add_ad.jsp" id="new_ad" class="nav_btn">Add new ad</a></li>
+                <%}%>
             </ul>
         </nav>
 

@@ -1,4 +1,5 @@
 var ads;
+var user_type;
 
 function processRequest(xmlHttp) {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
@@ -12,7 +13,8 @@ function processRequest(xmlHttp) {
     }
 }
 
-function get_all_ads(){
+function get_all_ads(userType){
+    user_type = userType;
     var strURL = "GetAdsServlet";
     var xmlHttp;
 
@@ -38,6 +40,7 @@ function get_filtered_ads() {
     filters['area'] = document.getElementById('area').value;
     filters['type'] = document.getElementById('house_type').value;
     filters['size'] = {'lower_bound':size_lower_bound, 'upper_bound':size_upper_bound};
+    filters['suspended'] = 0;
 
 
     var xmlHttp = null;
@@ -91,9 +94,82 @@ function addNewAdCard(ad) {
     ad_li.appendChild(ad_image);
     ad_li.appendChild(ad_description);
     ad_li.appendChild(view_ad_button);
+    // user_type = "admin"; //for test only
+    if(user_type === "admin"){
+        var suspendBtn = document.createElement('button');
+        var deleteBtn = document.createElement('button');
+        suspendBtn.innerHTML = 'Suspend';
+        deleteBtn.innerHTML = 'Delete';
+        suspendBtn.addEventListener("click", function() {
+            suspendAd(ad);
+        });
 
+        deleteBtn.addEventListener("click", function() {
+            var ans = confirm('You cannot undone this, are you sure you want to delete this ad?');
+            if(ans === true){
+                delete_ad(ad);
+            }
+        });
+
+        ad_li.appendChild(deleteBtn);
+        ad_li.appendChild(suspendBtn);
+    }
     document.getElementById('ads_list').appendChild(ad_li);
 }
+
+
+function refresh(ad) {
+
+    ads.splice(ads.indexOf(ad),1);
+    updateHTML();
+}
+
+function suspendAd(ad) {
+
+    var strURL = "AdServlet?id="+ad['id'];
+    var xmlHttp = null;
+
+    if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+        xmlHttp = new XMLHttpRequest();
+    }else if (window.ActiveXObject) { // IE
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlHttp.open("GET", strURL);
+    xmlHttp.onreadystatechange=function(){
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+            if(xmlHttp.responseText === "success"){
+                refresh(ad);
+            }else{
+                window.alert("Sorry something went wrong");
+            }
+        }
+    };
+    xmlHttp.send();
+}
+
+function delete_ad(ad) {
+    var strURL = "AdServlet?id="+ad['id'];
+    var xmlHttp = null;
+
+    if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+        xmlHttp = new XMLHttpRequest();
+    }else if (window.ActiveXObject) { // IE
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlHttp.open("DELETE", strURL);
+    xmlHttp.onreadystatechange=function(){
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+            if(xmlHttp.responseText === "success"){
+                window.alert("Ad deleted successfully");
+                refresh(ad);
+            }else{
+                window.alert("Sorry something went wrong");
+            }
+        }
+    };
+    xmlHttp.send();
+}
+
 
 // function redirect(url, ad) {
 //     document.getElementById('houseType').setAttribute('value', ad['type']);

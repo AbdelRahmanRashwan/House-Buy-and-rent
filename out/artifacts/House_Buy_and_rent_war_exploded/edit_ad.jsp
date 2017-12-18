@@ -16,7 +16,7 @@
 
     <%
         if(session.getAttribute("name")==null){
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("register.jsp");
         }
         int ad_id = Integer.parseInt(request.getParameter("id"));
         int user_id = Integer.parseInt(session.getAttribute("id").toString());

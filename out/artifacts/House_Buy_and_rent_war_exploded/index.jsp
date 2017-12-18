@@ -11,6 +11,11 @@
     <title>$Title$</title>
   </head>
   <body>
+  <%
+    if(session.getAttribute("name")==null){
+      response.sendRedirect("register.jsp");
+    }
+  %>
   <header></header>
   <img id="logo" src="../resources/logo.png">
     <%
