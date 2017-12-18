@@ -94,7 +94,7 @@ function addNewAdCard(ad) {
     ad_li.appendChild(ad_image);
     ad_li.appendChild(ad_description);
     ad_li.appendChild(view_ad_button);
-    user_type = "admin"; //for test only
+    
     if(user_type === "admin"){
         var suspend_button = document.createElement('button');
         var delete_button = document.createElement('button');

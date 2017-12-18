@@ -29,7 +29,7 @@
         }
 
     %>
-    <body onload="get_all_ads(); get_notifications(<%=user_id%>)">
+    <body onload="get_all_ads(user_type); get_notifications(<%=user_id%>)">
         <nav>
             <ul class="nav">
                 <li class="nav_item"><a href="Logout" id="logout" class="nav_btn">Logout</a></li>

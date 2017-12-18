@@ -13,7 +13,7 @@ function show_map(lng, lat) {
 }
 
 function delete_ad(id) {
-    var strURL = "Servlet?id="+id;
+    var strURL = "AdServlet?id="+id;
     var xmlHttp = null;
 
     if (window.XMLHttpRequest) { // Mozilla, Safari, ...

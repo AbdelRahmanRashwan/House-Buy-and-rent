@@ -45,18 +45,6 @@ public class Notifications extends HttpServlet {
         List<Notification> notificationsList = notification_model.selectWhere("*","user_id = "+user_id);
         notificationsList.sort((not1, not2) -> Boolean.compare(not1.isShowed(), not2.isShowed()));
 
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-        notificationsList.add(new Notification());
-
         Gson gson = new Gson();
 
         for(Notification not:notificationsList){
