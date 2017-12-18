@@ -44,16 +44,16 @@
         <div id="MainContainer">
             <h2 id="edit-preference">Edit Profile:</h2>
             <form action='EditProfile' method='post'>
-                <input name='name' placeholder='Name' required value=<%request.getSession().getAttribute("name");%>>
+                <input name='name' placeholder='Name' required value=<%=request.getSession().getAttribute("name")%>>
 
-                <input type='tel' name='phone' placeholder='Phone' required onchange='validateNumber(this)' value=<%request.getSession().getAttribute("phone");%>>
+                <input type='tel' name='phone' placeholder='Phone' required onchange='validateNumber(this)' value=<%=request.getSession().getAttribute("phone")%>>
 
                 <input type='password' name='oldPassword' placeholder='Old Password' required>
 
                 <input type='password' name='password'
                        id ='password' placeholder='New Password' onchange='validatePassword(this)'>
 
-                <input name="address" placeholder="Address" value=<%request.getSession().getAttribute("address");%>>
+                <input name="address" placeholder="Address" value=<%=request.getSession().getAttribute("address")%>>
 
                 <button>Submit</button>
             </form>

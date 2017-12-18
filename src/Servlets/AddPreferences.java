@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "AddPreferences", urlPatterns = "/AddPreferences")
 public class AddPreferences extends HttpServlet {
@@ -26,7 +27,8 @@ public class AddPreferences extends HttpServlet {
 
         PreferencesModel preferencesModel = new PreferencesModel();
         int user_id = Integer.parseInt(request.getSession().getAttribute("id").toString());
-        if (preferencesModel.selectWhere("*","id = "+user_id).get(0) != null){
+        ArrayList<Preferences> preferences1 = (ArrayList<Preferences>) preferencesModel.selectWhere("*","id = "+user_id);
+        if (preferences1 != null && preferences1.get(0) != null){
             preferencesModel.update(preferences);
             ((Preferences)request.getSession().getAttribute("preferences")).setArea((String) request.getAttribute("area"));
             ((Preferences)request.getSession().getAttribute("preferences")).setFloor((int) request.getAttribute("floor"));
