@@ -12,6 +12,11 @@
     <link rel='stylesheet' type='text/css' href='Style/forms.css'>
 </head>
 <body>
+    <%
+        if(session.getAttribute("name")!=null){
+            response.sendRedirect("index.jsp");
+        }
+    %>
     <div id="MainContainer">
         <a href='home.jsp' ><img src='resources/logo.png' id='logo'></a>
         <form action="Login" method="post">

@@ -20,7 +20,7 @@
 
     <%
         if(session.getAttribute("name")==null){
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("register.jsp");
         }
     %>
     <body onload="get_all_ads(); get_notifications(<%=session.getAttribute("id")%>)">
