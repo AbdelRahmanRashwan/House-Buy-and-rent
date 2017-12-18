@@ -21,7 +21,6 @@ public class Login extends HttpServlet {
         System.out.println(request.getParameter("password"));
         User user = userModel.selectByEmailAndPassword(request.getParameter("email")
                 , request.getParameter("password"));
-//        User user = new User(1, "ahmed", "ahmed@hamada","01141118545","hamada st","sayed");
         if (user == null) {
             request.setAttribute("error", true);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");

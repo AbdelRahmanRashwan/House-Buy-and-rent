@@ -12,7 +12,7 @@
     display: inline-block;
     list-style:none;
     padding:12px 10px;
-    vertical-align: ce;
+    vertical-align: middle;
 }
 .nav .nav_item {
     display: inline-block;
@@ -84,6 +84,10 @@
     z-index: 0;
 }
 
+#notifications_div{
+    overflow: auto;
+}
+
 
 h3 {
     display:block;
@@ -132,3 +136,4 @@ a:link{
 .notification_item:hover{
     background: #a2a3a5;
 }
+

@@ -32,12 +32,6 @@
             user_name = session.getAttribute("name").toString();
             user_type = session.getAttribute("type").toString();
         }
-<<<<<<< HEAD
-        int ad_id = Integer.parseInt(request.getParameter("id"));
-        int user_id = (int) session.getAttribute("id");
-        String user_name = session.getAttribute("name").toString();
-=======
->>>>>>> 503aea3e8bad4204cb2294e733de639b8ae5a89f
     %>
     <body onload="get_ad(<%=ad_id%>,<%=user_id%>,'<%=user_name%>'); get_notifications(<%=user_id%>)">
         <nav>
