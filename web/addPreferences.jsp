@@ -14,7 +14,7 @@
     <body>
         <%
             if(session.getAttribute("name")==null){
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("register.jsp");
             }
         %>
         <form action="AddPreferences" method="get">

@@ -14,6 +14,11 @@
 <body>
 
 <div id='MainContainer'>
+    <%
+        if(session.getAttribute("name")!=null){
+            response.sendRedirect("index.jsp");
+        }
+    %>
     <a href='home.jsp'><img src='resources/logo.png' id='logo'></a>
     <form action='Register' method='post'>
         <input name='name' placeholder='Name' required>

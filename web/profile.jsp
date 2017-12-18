@@ -15,7 +15,7 @@
     <body>
         <%
             if(session.getAttribute("name")==null){
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("register.jsp");
             }
         %>
         <h1><% out.print(session.getAttribute("name")); %></h1>
