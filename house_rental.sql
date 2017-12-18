@@ -231,7 +231,7 @@ CREATE TABLE `user_advertisement` (
   `comment` varchar(250) DEFAULT NULL,
   KEY `userId` (`user_id`),
   KEY `AdvertisementId` (`advertisement_id`),
-  CONSTRAINT `user_advertisement_ibfk_1` FOREIGN KEY (`advertisement_id`) REFERENCES `advertisement` (`id`),
+  CONSTRAINT `user_advertisement_ibfk_1` FOREIGN KEY (`advertisement_id`) REFERENCES `advertisement` (`id`) ON  DELETE CASCADE ,
   CONSTRAINT `user_advertisement_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

@@ -1,7 +1,6 @@
 var ads;
 
 function processRequest(xmlHttp) {
-    // document.writeln(xmlHttp.readyState+" & "+xmlHttp.status);
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
         //Get data
         var ads_json = xmlHttp.responseText;

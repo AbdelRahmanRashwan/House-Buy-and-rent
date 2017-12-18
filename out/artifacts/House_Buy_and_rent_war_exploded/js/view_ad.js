@@ -12,21 +12,44 @@ function show_map(lng, lat) {
     });
 }
 
+function delete_ad(id) {
+    var strURL = "DeleteAdServlet?id="+id;
+    var xmlHttp = null;
+
+    if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+        xmlHttp = new XMLHttpRequest();
+    }else if (window.ActiveXObject) { // IE
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlHttp.open("GET", strURL);
+    xmlHttp.onreadystatechange=function(){
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+            if(xmlHttp.responseText === "success"){
+                window.alert("Ad deleted successfully");
+                window.location.href="home.jsp";
+            }else{
+                window.alert("Sorry something went wrong");
+            }
+        }
+    };
+    xmlHttp.send();
+}
+
 function updateHTML(ad) {
-    // document.writeln('i am here');
     ad_id = ad['id'];
     var ad_container = document.getElementById('ad');
     document.getElementById('house_type').innerHTML = ad['type'];
     document.getElementById('description').setAttribute('value',ad['description']);
     document.getElementById('area').setAttribute('value', ad['area']);
 
-    //Adding pictures
+    //Showing pictures
     var pictures_container = document.getElementById('photo_slideshow');
     for(var pic of ad['pictures']){
         var img = document.createElement('img');
         img.setAttribute('src',"data:image/png;base64,"+pic['imageBase64']) ;
         pictures_container.appendChild(img);
     }
+
     //Showing house location on map
     show_map(ad['longitude'],ad['latitude']);
 
@@ -38,13 +61,23 @@ function updateHTML(ad) {
         comments_container.appendChild(comment_p);
     }
 
+    //Showing the ad edit and delete
     if(ad['user']['id'] === curr_user_id){
         var editBtn = document.createElement('button');
+        var deleteBtn = document.createElement('button');
         editBtn.innerHTML = 'Edit';
+        deleteBtn.innerHTML = 'Delete';
         editBtn.addEventListener("click", function() {
             window.location.href = "edit_ad.jsp?id="+ad['id'];
         });
+        deleteBtn.addEventListener("click", function() {
+            var ans = confirm('You cannot undone this, are you sure you want to delete this ad?');
+            if(ans === true){
+                delete_ad(ad['id']);
+            }
+        });
         ad_container.appendChild(editBtn);
+        ad_container.appendChild(deleteBtn);
     }
 }
 

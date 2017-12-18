@@ -1,6 +1,10 @@
 var notifications;
 var not_showed_ads = 0;
 
+function makeNotificationViewed(notification_id) {
+    $.ajax({url: "Notifications?id="+notification_id+"&viewed="+true, success: function(result) {}});
+}
+
 function addNotificationItem(notification) {
     var notification_li = document.createElement('li');
     notification_li.className = 'notification_item';
@@ -14,6 +18,7 @@ function addNotificationItem(notification) {
     notification_li.appendChild(p);
     notification_li.addEventListener('click',function () {
         window.location.href = "show_ad.jsp?id="+notification['advertisementId'];
+        makeNotificationViewed(notification['id']);
     });
     document.getElementById('notifications_container').appendChild(notification_li);
 }

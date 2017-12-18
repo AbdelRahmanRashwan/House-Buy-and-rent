@@ -37,7 +37,9 @@
                     <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                     <div id="notifications">
                         <h3>Notifications</h3>
-                        <ul id="notifications_container" style="height:300px;"></ul>
+                        <div id="notifications_div">
+                            <ul id="notifications_container" style="height:300px;"></ul>
+                        </div>
                         <div class="seeAll"><a href="#" class="nav_btn">See All</a></div>
                     </div>
                 </li>
