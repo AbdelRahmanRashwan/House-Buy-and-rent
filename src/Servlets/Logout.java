@@ -20,6 +20,7 @@ public class Logout extends HttpServlet {
         session.setAttribute("email", null);
         session.setAttribute("address", null);
         session.setAttribute("phone", null);
+        session.setAttribute("type", null);
         response.sendRedirect("home.jsp");
     }
 }

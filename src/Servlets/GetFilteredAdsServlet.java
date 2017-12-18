@@ -91,6 +91,7 @@ public class GetFilteredAdsServlet extends HttpServlet {
             query.append("Size" + " <= ").append(size_upper);
         }catch (Exception ignored){}
 
+
         System.out.println(query.toString());
 
         return query.toString();
@@ -102,7 +103,6 @@ public class GetFilteredAdsServlet extends HttpServlet {
     }
 
     static String getString(String path) throws IOException {
-        System.out.println(path);
         File image = new File(path);
         FileInputStream in = new FileInputStream(image);
         byte[] imageBytes = new byte[(int)image.length()];

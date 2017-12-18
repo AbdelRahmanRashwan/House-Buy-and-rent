@@ -13,7 +13,7 @@ function show_map(lng, lat) {
 }
 
 function delete_ad(id) {
-    var strURL = "DeleteAdServlet?id="+id;
+    var strURL = "AdServlet?id="+id;
     var xmlHttp = null;
 
     if (window.XMLHttpRequest) { // Mozilla, Safari, ...
@@ -21,7 +21,7 @@ function delete_ad(id) {
     }else if (window.ActiveXObject) { // IE
         xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlHttp.open("GET", strURL);
+    xmlHttp.open("DELETE", strURL);
     xmlHttp.onreadystatechange=function(){
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
             if(xmlHttp.responseText === "success"){
