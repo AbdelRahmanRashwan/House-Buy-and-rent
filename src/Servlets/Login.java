@@ -1,6 +1,8 @@
 package Servlets;
 
+import Entities.Admin;
 import Entities.User;
+import Models.AdminModel;
 import Models.UserModel;
 
 import javax.jms.Session;
@@ -17,17 +19,29 @@ import java.io.IOException;
 public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserModel userModel = new UserModel();
-        System.out.println(request.getParameter("email"));
-        System.out.println(request.getParameter("password"));
         User user = userModel.selectByEmailAndPassword(request.getParameter("email")
                 , request.getParameter("password"));
         if (user == null) {
-            request.setAttribute("error", true);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-            requestDispatcher.forward(request, response);
+        	AdminModel adminModel = new AdminModel();
+        	Admin admin = adminModel.selectByUsernameAndPassword(request.getParameter("email"), request.getParameter("password"));
+        	System.out.println(admin==null);
+        	if (admin != null) {
+        		HttpSession session = request.getSession(true);
+                session.setAttribute("id", admin.getId());
+                session.setAttribute("name", admin.getUsername());
+                session.setAttribute("email", admin.getEmail());
+                session.setAttribute("type", "admin");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+                requestDispatcher.forward(request, response); 
+        	}
+        	else {
+               	request.setAttribute("error", true);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+                requestDispatcher.forward(request, response);       		
+        	}
         }
         else{
-            HttpSession session = request.getSession(true);
+        	HttpSession session = request.getSession(true);
             session.setAttribute("id", user.getId());
             session.setAttribute("name", user.getName());
             session.setAttribute("email", user.getEmail());

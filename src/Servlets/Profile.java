@@ -18,12 +18,16 @@ import java.util.List;
 @WebServlet(name = "Profile", urlPatterns = "/Profile")
 public class Profile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PreferencesModel preferencesModel = new PreferencesModel();
+        
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	PreferencesModel preferencesModel = new PreferencesModel();
         int user_id = Integer.parseInt(request.getSession().getAttribute("id").toString());
-        Preferences preferences = preferencesModel.selectWhere("*","id = "+user_id).get(0);
+        Preferences preferences = preferencesModel.selectWhere("*","user_id = "+user_id).get(0);
         AdvertisementModel advertisementModel = new AdvertisementModel();
         List<Advertisement> advertisements = advertisementModel.selectWhere(null,
-                "userID = "+(int)request.getSession().getAttribute("userID"));
+                "userID = "+(int)request.getSession().getAttribute("id"));
 //        Preferences preferences = new Preferences(1, 1, 200, 2,"villa","giza");
 //        List<Advertisement> advertisements = new ArrayList<>();
 //        House house = new House(1, 100, "hamada",4, "good","villa", "giza");
@@ -33,14 +37,11 @@ public class Profile extends HttpServlet {
 //        advertisements.add(advertisement);
 //        advertisements.add(advertisement);
 //        advertisements.add(advertisement);
+        System.out.println("preferences "+ " "+preferences.getFloor());
         request.getSession().setAttribute("preferences", preferences);
         request.setAttribute("advertisements", advertisements);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
         requestDispatcher.forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
