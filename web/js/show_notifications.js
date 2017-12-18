@@ -19,26 +19,26 @@ function addNotificationItem(notification) {
 }
 
 function get_notifications(user_id) {
-    $.ajax({url: "Notifications?user_id="+user_id, success: function(result){
-            notifications = JSON.parse(result);
-            not_showed_ads = 0;
-
-            if(notifications != null) {
-                for (var notification of notifications) {
-
-                    addNotificationItem(notification);
-                }
-            }
-
-            if(not_showed_ads >0 ) {
-                $('#noti_Counter')
-                    .css({opacity: 0})
-                    .text(not_showed_ads)
-                    .css({top: '-10px'})
-                    .animate({top: '-2px', opacity: 1}, 500);
-                $('#noti_Button').css({background:'#FFF'})
-            }else{
-                $('#noti_Counter').hide();
-            }
-        }});
+    // $.ajax({url: "Notifications?user_id="+user_id, success: function(result){
+    //         notifications = JSON.parse(result);
+    //         not_showed_ads = 0;
+    //
+    //         if(notifications != null) {
+    //             for (var notification of notifications) {
+    //
+    //                 addNotificationItem(notification);
+    //             }
+    //         }
+    //
+    //         if(not_showed_ads >0 ) {
+    //             $('#noti_Counter')
+    //                 .css({opacity: 0})
+    //                 .text(not_showed_ads)
+    //                 .css({top: '-10px'})
+    //                 .animate({top: '-2px', opacity: 1}, 500);
+    //             $('#noti_Button').css({background:'#FFF'})
+    //         }else{
+    //             $('#noti_Counter').hide();
+    //         }
+    //     }});
 }

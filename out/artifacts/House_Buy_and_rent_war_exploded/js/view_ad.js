@@ -13,20 +13,20 @@ function show_map(lng, lat) {
 }
 
 function updateHTML(ad) {
-    // document.writeln('i am here');
     ad_id = ad['id'];
     var ad_container = document.getElementById('ad');
     document.getElementById('house_type').innerHTML = ad['type'];
     document.getElementById('description').setAttribute('value',ad['description']);
     document.getElementById('area').setAttribute('value', ad['area']);
 
-    //Adding pictures
+    //Showing pictures
     var pictures_container = document.getElementById('photo_slideshow');
     for(var pic of ad['pictures']){
         var img = document.createElement('img');
         img.setAttribute('src',"data:image/png;base64,"+pic['imageBase64']) ;
         pictures_container.appendChild(img);
     }
+
     //Showing house location on map
     show_map(ad['longitude'],ad['latitude']);
 
@@ -38,6 +38,7 @@ function updateHTML(ad) {
         comments_container.appendChild(comment_p);
     }
 
+    //Showing the ad edit button
     if(ad['user']['id'] === curr_user_id){
         var editBtn = document.createElement('button');
         editBtn.innerHTML = 'Edit';

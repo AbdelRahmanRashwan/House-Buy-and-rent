@@ -19,7 +19,7 @@
             response.sendRedirect("login.jsp");
         }
         int ad_id = Integer.parseInt(request.getParameter("id"));
-        int user_id = Integer.parseInt(session.getAttribute("id").toString());
+        int user_id = (int) session.getAttribute("id");
         String user_name = session.getAttribute("name").toString();
     %>
     <body onload="get_ad(<%=ad_id%>,<%=user_id%>,'<%=user_name%>')">

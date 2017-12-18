@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="Style/forms.css"/>
         <script type="text/javascript" src="js/show_map.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFJMPEqo48wJhXN5uBq3qBJGNYAawDU3k&callback=loadMap"></script>
 
@@ -20,18 +21,20 @@
                 response.sendRedirect("login.jsp");
             }
         %>
-        <form action="AddAdServlet" method="post"  encType="multipart/form-data">
-            <input name="type" type="text" placeholder="Type" required/><br>
-            <input name="space" type="number" placeholder="Space" required/><br>
-            <input name="description" type="text" placeholder="Description" required/><br>
-            <input name="area" id="area" type="text" placeholder="Area" required/><br>
-            <input name="floor" type="number" placeholder="floor" required/><br>
-            <input type="file" name="file" value="select images..."/>
-            <input name="lat" id="lat" type="hidden"/>
-            <input name="lng" id="lng" type="hidden"/>
+        <div id="MainContainer">
+            <form action="AddAdServlet" method="post"  encType="multipart/form-data">
+                <input name="type" type="text" placeholder="Type" required/><br>
+                <input name="space" type="number" placeholder="Space" required/><br>
+                <input name="description" type="text" placeholder="Description" required/><br>
+                <input name="area" id="area" type="text" placeholder="Area" required/><br>
+                <input name="floor" type="number" placeholder="floor" required/><br>
+                <input type="file" name="file" value="select images..."/>
+                <input name="lat" id="lat" type="hidden"/>
+                <input name="lng" id="lng" type="hidden"/>
 
-            <button>Add</button>
-        </form>
+                <button>Add</button>
+            </form>
+        </div>
         <button type="button" onclick="loadMap()">Get location on map</button>
         <div id="map" style="width:400px;height:400px"></div>
     </body>

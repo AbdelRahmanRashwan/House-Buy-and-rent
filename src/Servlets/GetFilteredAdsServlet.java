@@ -61,39 +61,40 @@ public class GetFilteredAdsServlet extends HttpServlet {
     }
 
     private String build_query(JsonObject filters_json) {
-        StringBuilder query = new StringBuilder();
+//        StringBuilder query = new StringBuilder();
+//
+//        int index = 0;
+//        for(String key:filters_json.keySet()){
+//            if(key.equals("size")) continue;
+//
+//            String val = filters_json.get(key).getAsString();
+//            if(index < filters_json.size() - 1 && (query.length() > 0) &&!(val.isEmpty()))
+//                query.append(" and ");
+//
+//            if(!(val.isEmpty()))
+//                query.append(key).append(" = '").append(val).append("'");
+//
+//            index++;
+//        }
+//
+//        try {
+//            JsonObject size = filters_json.get("size").getAsJsonObject();
+//            int size_lower = size.get("lower_bound").getAsInt();
+//            query.append((query.length() == 0) ? "" : " and ");
+//            query.append("size" + " >= ").append(size_lower);
+//        }catch (Exception ignored){}
+//
+//        try {
+//            JsonObject size = filters_json.get("Size").getAsJsonObject();
+//            int size_upper = size.get("upper_bound").getAsInt();
+//            query.append((query.length() == 0) ? "" : " and ");
+//            query.append("Size" + " <= ").append(size_upper);
+//        }catch (Exception ignored){}
+//
+//        System.out.println(query.toString());
 
-        int index = 0;
-        for(String key:filters_json.keySet()){
-            if(key.equals("size")) continue;
-
-            String val = filters_json.get(key).getAsString();
-            if(index < filters_json.size() - 1 && (query.length() > 0) &&!(val.isEmpty()))
-                query.append(" and ");
-
-            if(!(val.isEmpty()))
-                query.append(key).append(" = '").append(val).append("'");
-
-            index++;
-        }
-
-        try {
-            JsonObject size = filters_json.get("size").getAsJsonObject();
-            int size_lower = size.get("lower_bound").getAsInt();
-            query.append((query.length() == 0) ? "" : " and ");
-            query.append("size" + " >= ").append(size_lower);
-        }catch (Exception ignored){}
-
-        try {
-            JsonObject size = filters_json.get("Size").getAsJsonObject();
-            int size_upper = size.get("upper_bound").getAsInt();
-            query.append((query.length() == 0) ? "" : " and ");
-            query.append("Size" + " <= ").append(size_upper);
-        }catch (Exception ignored){}
-
-        System.out.println(query.toString());
-
-        return query.toString();
+//        return query.toString();
+        return "";
     }
 
 

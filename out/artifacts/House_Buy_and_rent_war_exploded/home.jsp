@@ -16,6 +16,7 @@
 
         <link rel="stylesheet" type="text/css" href="Style/home.css"/>
         <link rel="stylesheet" type="text/css" href="Style/navbar.css"/>
+        <link rel="stylesheet" type="text/css" href="Style/forms.css"/>
     </head>
 
     <%
@@ -24,7 +25,8 @@
         }
     %>
     <body onload="get_all_ads(); get_notifications(<%=session.getAttribute("id")%>)">
-        <nav>
+        <nav id="nav-background">
+            <a href="home.jsp"><img src="resources/logo.png" id="logo-nav"></a>
             <ul class="nav">
                 <li class="nav_item"><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
                 <li class="nav_item"><a href="profile.jsp" id="profile" class="nav_btn">Profile</a></li>
@@ -32,16 +34,17 @@
                     <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
 
                     <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                    <div id="noti_Button"></div>
+                    <div id="noti_Button"><img src="resources/notification.png"></div>
 
                     <!--THE NOTIFICAIONS DROPDOWN BOX.-->
                     <div id="notifications">
                         <h3>Notifications</h3>
                         <ul id="notifications_container" style="height:300px;"></ul>
-                        <div class="seeAll"><a href="#" class="nav_btn">See All</a></div>
+                        <div class="seeAll"><a href="#" >See All</a></div>
                     </div>
                 </li>
                 <li class="nav_item"><a href="add_ad.jsp" id="new_ad" class="nav_btn">Add new ad</a></li>
+                <li class="nav_item"><a href="home.jsp" class="nav_btn">Home</a></li>
             </ul>
         </nav>
 
@@ -52,19 +55,13 @@
                 </ul>
             </div>
             <div class="right">
-                <label for="area">Location: </label>
-                <input id="area" type="text"/><br>
-                <label for="house_type">House type: </label>
-                <input id="house_type" type="text"/><br>
-                <label>
-                    Space:
-                    <input type="number" id="lower_bound">
-                    <span>to</span>
-                    <input type="number" id="upper_bound">
-                    <span> m</span>
-                </label>
-                <br>
-                <button class="btn" onclick="get_filtered_ads()">Apply filter</button>
+                <div id="MainContainer">
+                    <input id="area" type="text" placeholder="Area"/><br>
+                    <input id="house_type" type="text" placeholder="House Type"/><br>
+                    <input type="number" id="lower_bound" placeholder="From">
+                    <input type="number" id="upper_bound" placeholder="To">
+                    <button class="btn" onclick="get_filtered_ads()">Apply filter</button>
+                </div>
             </div>
 
             <%--<form id="hidden_form" method="post" hidden>--%>

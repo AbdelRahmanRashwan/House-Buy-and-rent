@@ -59,8 +59,8 @@ function updateHTML() {
     document.getElementById('ads_list').innerHTML = '';
 
     //Get the reference of the DIV in the HTML DOM by passing the ID
-    for (var ad of ads) {
-        addNewAdCard(ad);
+    for (var i = 0; i <ads.length;i++) {
+        addNewAdCard(ads[i]);
     }
 }
 
@@ -72,14 +72,14 @@ function addNewAdCard(ad) {
     var view_ad_button = document.createElement('button');
 
     ad_type.id = 'type';
-    ad_type.innerHTML = ad['type'];
+    ad_type.innerHTML = "Type: "+ad['type'];
 
-    ad_image.id = 'image';
-    ad_image.setAttribute('src',"data:image/png;base64,"+ad['pictures'][0]['imageBase64']) ;
+    // ad_image.id = 'image';
+    // ad_image.setAttribute('src',"data:image/png;base64,"+ad['pictures'][0]['imageBase64']) ;
     // document.writeln(ad['pictures'][0]['image_bytes']);
 
     ad_description.id = 'description';
-    ad_description.innerHTML = ad['description'];
+    ad_description.innerHTML = "Description: "+ad['description'];
 
     view_ad_button.innerHTML = 'View';
     view_ad_button.addEventListener("click", function() {
@@ -89,9 +89,10 @@ function addNewAdCard(ad) {
     ad_li.listStyle = 'none';
 
     ad_li.appendChild(ad_type);
-    ad_li.appendChild(ad_image);
+    // ad_li.appendChild(ad_image);
     ad_li.appendChild(ad_description);
     ad_li.appendChild(view_ad_button);
+    ad_li.setAttribute("class","ads-card");
 
     document.getElementById('ads_list').appendChild(ad_li);
 }

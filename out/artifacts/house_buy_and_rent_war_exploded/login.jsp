@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="MainContainer">
-        <a href='home.php' ><img src='resources/logo.png' id='logo'></a>
+        <a href='home.jsp' ><img src='resources/logo.png' id='logo'></a>
         <form action="Login" method="post">
 
             <input type="email" name="email" placeholder="Email" required>
