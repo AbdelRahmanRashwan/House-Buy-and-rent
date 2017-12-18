@@ -19,12 +19,17 @@
     </head>
 
     <%
+        int user_id =0;
+        String user_type ="";
         if(session.getAttribute("name")==null){
             response.sendRedirect("register.jsp");
+        }else {
+            user_type = session.getAttribute("type").toString();
+            user_id = Integer.parseInt(session.getAttribute("id").toString());
         }
-        String user_type = session.getAttribute("type").toString();
+
     %>
-    <body onload="get_all_ads(); get_notifications(<%=session.getAttribute("id")%>)">
+    <body onload="get_all_ads(); get_notifications(<%=user_id%>)">
         <nav>
             <ul class="nav">
                 <li class="nav_item"><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
@@ -44,10 +49,13 @@
                         <div class="seeAll"><a href="#" class="nav_btn">See All</a></div>
                     </div>
                 </li>
+                <li class="nav_item">
+                    <a href="home.jsp" id="home" class="nav_btn">Home</a>
+                </li>
                 <%
                     if(user_type.equals("admin")){
                 %>
-                <li class="nav_item"><a href="suspendedAds.jsp" id="suspended_ads" class="nav_btn">Suspended ads</a></li>
+                <li class="nav_item"><a href="suspended_ads.jsp" id="suspended_ads" class="nav_btn">Suspended ads</a></li>
                 <%
                     } else{
                 %>

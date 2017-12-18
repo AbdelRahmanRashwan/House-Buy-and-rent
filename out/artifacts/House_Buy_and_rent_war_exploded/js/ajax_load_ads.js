@@ -40,7 +40,7 @@ function get_filtered_ads() {
     filters['area'] = document.getElementById('area').value;
     filters['type'] = document.getElementById('house_type').value;
     filters['size'] = {'lower_bound':size_lower_bound, 'upper_bound':size_upper_bound};
-    filters['suspended'] = 0;
+    filters['suspend'] = 0;
 
 
     var xmlHttp = null;
@@ -96,23 +96,23 @@ function addNewAdCard(ad) {
     ad_li.appendChild(view_ad_button);
     user_type = "admin"; //for test only
     if(user_type === "admin"){
-        var suspendBtn = document.createElement('button');
-        var deleteBtn = document.createElement('button');
-        suspendBtn.innerHTML = 'Suspend';
-        deleteBtn.innerHTML = 'Delete';
-        suspendBtn.addEventListener("click", function() {
+        var suspend_button = document.createElement('button');
+        var delete_button = document.createElement('button');
+        suspend_button.innerHTML = 'Suspend';
+        delete_button.innerHTML = 'Delete';
+        suspend_button.addEventListener("click", function() {
             suspendAd(ad);
         });
 
-        deleteBtn.addEventListener("click", function() {
+        delete_button.addEventListener("click", function() {
             var ans = confirm('You cannot undone this, are you sure you want to delete this ad?');
             if(ans === true){
                 delete_ad(ad);
             }
         });
 
-        ad_li.appendChild(deleteBtn);
-        ad_li.appendChild(suspendBtn);
+        ad_li.appendChild(delete_button);
+        ad_li.appendChild(suspend_button);
     }
     document.getElementById('ads_list').appendChild(ad_li);
 }
@@ -126,7 +126,7 @@ function refresh(ad) {
 
 function suspendAd(ad) {
 
-    var strURL = "AdServlet?id="+ad['id'];
+    var strURL = "AdServlet?id="+ad['id']+"&suspended="+true;
     var xmlHttp = null;
 
     if (window.XMLHttpRequest) { // Mozilla, Safari, ...

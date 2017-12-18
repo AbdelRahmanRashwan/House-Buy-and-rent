@@ -26,8 +26,9 @@ public class AdServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int ad_id = Integer.parseInt(request.getParameter("id"));
+        boolean suspend = Boolean.parseBoolean(request.getParameter("suspended"));
         Advertisement advertisement = advertisement_model.select(ad_id);
-        advertisement.setSuspend(true);
+        advertisement.setSuspend(suspend);
         if(advertisement_model.update(advertisement)){
             response.getWriter().print("success");
         }else{
