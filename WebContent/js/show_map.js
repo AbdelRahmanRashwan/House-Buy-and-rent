@@ -2,9 +2,9 @@ var old_marker = null;
 var map = null;
 var address = "";
 function loadMap() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
+    var myLatLng = {lat: 30, lng: 31.044};
     var options = {
-        zoom: 4,
+        zoom: 7,
         center: myLatLng
     };
     map = new google.maps.Map(document.getElementById('map'), options);
