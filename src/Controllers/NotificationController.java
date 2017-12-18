@@ -17,6 +17,7 @@ import java.util.Properties;
 public class NotificationController {
     private static PreferencesModel preferencesModel;
     private static NotificationModel notificationModel;
+    private static UserModel userModel;
 
     public NotificationController() {
         preferencesModel = new PreferencesModel();
@@ -35,8 +36,7 @@ public class NotificationController {
         notification.setAdvertisementId(advertisement.getId());
         notification.setDescription("A new advertisement meets your preferences has been added. Advertisement Id:" + advertisement.getId());
         for (int i = 0; i < preferences.size(); i++) {
-            UserModel user_model = new UserModel();
-            User notifiedUser = user_model.select(preferences.get(i).getUserID());
+            User notifiedUser = userModel.select(preferences.get(i).getUserID());
             notification.setUserId(notifiedUser.getId());
             notificationModel.insert(notification);
             notifyByEmail(notifiedUser.getEmail(), advertisement.getId());
@@ -46,8 +46,8 @@ public class NotificationController {
     }
 
     private boolean notifyByEmail(String to, int advertisementId) {
-        final String username = "email";
-        final String password = "password";
+        final String username = "rashwanzoldyck@gmail.com";
+        final String password = "01141118545@bdo";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
