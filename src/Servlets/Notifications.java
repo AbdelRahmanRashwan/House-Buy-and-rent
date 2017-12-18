@@ -27,7 +27,19 @@ public class Notifications extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(request.getParameter("viewed")==null) {
+            getNotifications(request, response);
+        }else{
+            int notification_id = Integer.parseInt(request.getParameter("id"));
+            Notification notification = notification_model.select(notification_id);
+            notification.setShowed(true);
+            notification.setId(notification_id);
+            notification_model.update(notification);
+        }
 
+    }
+
+    private void getNotifications(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int user_id = Integer.parseInt(request.getParameter("user_id"));
 
         List<Notification> notificationsList = notification_model.selectWhere("*","user_id = "+user_id);
@@ -42,6 +54,5 @@ public class Notifications extends HttpServlet {
         String json = gson.toJson(notificationsList);
 
         response.getWriter().print(json);
-
     }
 }

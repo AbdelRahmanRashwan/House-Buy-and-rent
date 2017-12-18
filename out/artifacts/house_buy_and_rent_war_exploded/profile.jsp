@@ -17,7 +17,7 @@
     <body>
         <%
             if(session.getAttribute("name")==null){
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("register.jsp");
             }
         %>
         <nav id="nav-background">

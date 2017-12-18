@@ -23,10 +23,10 @@ function show_map(lng, lat) {
 }
 
 function updateHTML(ad) {
-    // if(curr_user_id !== ad['user']['id']){
-    //     window.alert("You are not the owner of this ad");
-    //     window.location.href = 'home.jsp';
-    // }
+    if(curr_user_id !== ad['user']['id']){
+        window.alert("You are not the owner of this ad");
+        window.location.href = 'home.jsp';
+    }
     document.getElementById('ad_id').setAttribute('value', ad['id']);
     document.getElementById('house_type').setAttribute('value', ad['type']);
     document.getElementById('description').setAttribute('value',ad['description']);

@@ -34,6 +34,7 @@ public class Login extends HttpServlet {
             session.setAttribute("email", user.getEmail());
             session.setAttribute("address", user.getAddress());
             session.setAttribute("phone", user.getPhone());
+            session.setAttribute("type", "normal"); //for test only
             response.sendRedirect("index.jsp");
 //            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Profile");
 //            requestDispatcher.forward(request, response);

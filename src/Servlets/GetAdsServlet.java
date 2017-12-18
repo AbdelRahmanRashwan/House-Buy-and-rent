@@ -33,7 +33,7 @@ public class GetAdsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        List<Advertisement> ads_list = ads_model.selectAll();
+        List<Advertisement> ads_list = ads_model.selectWhere("*","suspend="+0);
 
         response.setContentType("application/json");
 
