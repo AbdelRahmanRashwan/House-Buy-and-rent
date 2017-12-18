@@ -33,7 +33,7 @@
         <nav>
             <ul class="nav">
                 <li class="nav_item"><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
-                <li class="nav_item"><a href="profile.jsp" id="profile" class="nav_btn">Profile</a></li>
+                <li class="nav_item"><a href="Profile" id="profile" class="nav_btn">Profile</a></li>
                 <li class="nav_item" id="noti_Container">
                     <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
 

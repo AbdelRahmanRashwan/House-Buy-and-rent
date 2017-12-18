@@ -13,9 +13,9 @@
 </head>
 <body>
     <%
-        if(session.getAttribute("name")!=null){
+        /*if(session.getAttribute("name")!=null){
             response.sendRedirect("index.jsp");
-        }
+        }*/
     %>
     <div id="MainContainer">
         <a href='home.jsp' ><img src='resources/logo.png' id='logo'></a>
