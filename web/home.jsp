@@ -30,7 +30,7 @@
         }
 
     %>
-    <body onload="get_all_ads(); get_notifications(<%=session.getAttribute("id")%>)">
+    <body onload="get_all_ads(user_type); get_notifications(<%=user_id%>)">
         <nav id="nav-background">
             <a href="home.jsp"><img src="resources/logo.png" id="logo-nav"></a>
 

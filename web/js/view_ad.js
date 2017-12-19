@@ -41,6 +41,8 @@ function updateHTML(ad) {
     document.getElementById('house_type').innerHTML = ad['type'];
     document.getElementById('description').setAttribute('value',ad['description']);
     document.getElementById('area').setAttribute('value', ad['area']);
+    document.getElementById('size').setAttribute('value', ad['size']);
+
 
     //Showing pictures
     var pictures_container = document.getElementById('photo_slideshow');

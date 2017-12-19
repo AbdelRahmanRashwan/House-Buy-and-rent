@@ -34,7 +34,7 @@
         }
     %>
     <body onload="get_ad(<%=ad_id%>,<%=user_id%>,'<%=user_name%>'); get_notifications(<%=user_id%>)">
-        <nav>
+        <nav id="nav-background">
             <ul class="nav">
                 <li class="nav_item"><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
                 <li class="nav_item"><a href="profile.jsp" id="profile" class="nav_btn">Profile</a></li>
@@ -70,6 +70,7 @@
         <div id="ad">
             <h2 id="house_type"></h2>
             <p id="description"></p>
+            <p id="size"></p>
             <h4 id="area"></h4>
             <div id="photo_slideshow"></div>
             <h3>Location on map</h3>

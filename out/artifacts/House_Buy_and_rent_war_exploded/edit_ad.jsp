@@ -33,7 +33,7 @@
     %>
 
     <body onload="get_ad(<%=ad_id%>,<%=user_id%>); get_notifications(<%=user_id%>)">
-        <nav>
+        <nav id="nav-background">
             <ul class="nav">
                 <li class="nav_item"><a href="Logout" id="logout" class="nav_btn">Logout</a></li>
                 <li class="nav_item"><a href="profile.jsp" id="profile" class="nav_btn">Profile</a></li>
@@ -74,7 +74,7 @@
             <input name="area" id="area" type="text" placeholder="Area" required/><br>
             <input name="floor" id="floor" type="number" placeholder="floor" required/><br>
             <div id="photo_slideshow"></div>
-            <input type="file" name="file" value="select images..."/>
+            <input type="file" name="file" value="select images..." onchange="loadPicture(this)"/>
             <input name="lat" id="lat" type="hidden"/>
             <input name="lng" id="lng" type="hidden"/>
 

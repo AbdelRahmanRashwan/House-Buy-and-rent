@@ -33,9 +33,12 @@ function updateHTML(ad) {
     document.getElementById('area').setAttribute('value', ad['area']);
     document.getElementById('space').setAttribute('value', ad['size']);
     document.getElementById('floor').setAttribute('value', ad['floor']);
+    document.getElementById('lat').setAttribute('value', ad['latitude']);
+    document.getElementById('lng').setAttribute('value', ad['longitude']);
     var pictures_container = document.getElementById('photo_slideshow');
     for(var pic of ad['pictures']){
         var img = document.createElement('img');
+        img.id = "img";
         img.setAttribute('src',"data:image/png;base64,"+pic['imageBase64']) ;
         pictures_container.appendChild(img);
     }
@@ -73,4 +76,18 @@ function placeMarker(location) {
         position: location,
         map: map
     });
+}
+
+function loadPicture(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var img = document.getElementById('img');
+            window.alert(e.target);
+            img.setAttribute('src',e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }

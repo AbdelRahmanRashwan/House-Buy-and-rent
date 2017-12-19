@@ -2,6 +2,7 @@ package Servlets;
 
 import Controllers.NotificationController;
 import Entities.Advertisement;
+import Entities.Picture;
 import Models.AdvertisementModel;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -13,8 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/EditAdServlet")
@@ -34,6 +37,11 @@ public class EditAdServlet extends HttpServlet {
         try {
             adData = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
             Advertisement ad  = parseAd(adData);
+            List<Picture> pictures = new ArrayList<>();
+            Picture picture = saveImagesToDisk(adData,out);
+            if(picture != null)
+                pictures.add(picture);
+            ad.setPictures(pictures);
             if(ads_model.update(ad)){
                 ad.setId(ad.getId());
                 NotificationController notificationController = new NotificationController();
@@ -68,5 +76,39 @@ public class EditAdServlet extends HttpServlet {
 
 
         return ad;
+    }
+
+    private Picture saveImagesToDisk(List<FileItem> items, PrintWriter out) {
+
+        Picture file = getPicture(items, out);
+        if (file != null) return file;
+        System.out.println("null");
+        return null;
+
+    }
+
+    static Picture getPicture(List<FileItem> items, PrintWriter out) {
+        try{
+            for(FileItem item:items){
+                if(!(item.isFormField())&&item.getContentType().startsWith("image")) {
+                    String contentType = '.'+item.getContentType().split("/")[1];
+                    File uploadDir = new File("Images/");
+                    File file = File.createTempFile("img", contentType, uploadDir);
+                    item.write(file);
+
+                    out.println("File Saved Successfully");
+                    return new Picture(file.getAbsolutePath(), null);
+                }
+            }
+        }
+        catch(FileUploadException e){
+
+            out.println("upload fail "+e.getMessage());
+        }
+        catch(Exception ex){
+
+            out.println("Error "+ex.getMessage());
+        }
+        return null;
     }
 }

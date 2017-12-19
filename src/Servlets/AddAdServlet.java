@@ -83,27 +83,8 @@ public class    AddAdServlet extends HttpServlet {
 
     private Picture saveImagesToDisk(List<FileItem> items, PrintWriter out) {
 
-        try{
-            for(FileItem item:items){
-                if(!(item.isFormField())&&item.getContentType().startsWith("image")) {
-                    String contentType = '.'+item.getContentType().split("/")[1];
-                    File uploadDir = new File("Images/");
-                    File file = File.createTempFile("img", contentType, uploadDir);
-                    item.write(file);
-
-                    out.println("File Saved Successfully");
-                    return new Picture(file.getAbsolutePath(), null);
-                }
-            }
-        }
-        catch(FileUploadException e){
-
-            out.println("upload fail "+e.getMessage());
-        }
-        catch(Exception ex){
-
-            out.println("Error "+ex.getMessage());
-        }
+        Picture file = EditAdServlet.getPicture(items, out);
+        if (file != null) return file;
 
         return null;
 

@@ -70,18 +70,21 @@ function addNewAdCard(ad) {
     var ad_li = document.createElement('li');
     var ad_type = document.createElement('h1');
     var ad_description = document.createElement('p');
+    var ad_size = document.createElement('p');
     var ad_image = document.createElement('img');
     var view_ad_button = document.createElement('button');
 
     ad_type.id = 'type';
     ad_type.innerHTML = "Type: "+ad['type'];
 
-    // ad_image.id = 'image';
-    // ad_image.setAttribute('src',"data:image/png;base64,"+ad['pictures'][0]['imageBase64']) ;
-    // document.writeln(ad['pictures'][0]['image_bytes']);
+    ad_image.id = 'image';
+    ad_image.setAttribute('src',"data:image/png;base64,"+ad['pictures'][0]['imageBase64']) ;
 
     ad_description.id = 'description';
     ad_description.innerHTML = "Description: "+ad['description'];
+
+    ad_size.id = 'size';
+    ad_size.innerHTML = "size: "+ad['size'];
 
     view_ad_button.innerHTML = 'View';
     view_ad_button.addEventListener("click", function() {
@@ -91,14 +94,14 @@ function addNewAdCard(ad) {
     ad_li.listStyle = 'none';
 
     ad_li.appendChild(ad_type);
-    // ad_li.appendChild(ad_image);
+    ad_li.appendChild(ad_image);
     ad_li.appendChild(ad_description);
+    ad_li.appendChild(ad_size);
     ad_li.appendChild(view_ad_button);
-<<<<<<< HEAD
-    ad_li.setAttribute("class","ads-card");
 
-=======
-    
+    ad_li.setAttribute("class","ads_card");
+
+
     if(user_type === "admin"){
         var suspend_button = document.createElement('button');
         var delete_button = document.createElement('button');
@@ -118,7 +121,6 @@ function addNewAdCard(ad) {
         ad_li.appendChild(delete_button);
         ad_li.appendChild(suspend_button);
     }
->>>>>>> master
     document.getElementById('ads_list').appendChild(ad_li);
 }
 

@@ -78,6 +78,9 @@ public class AdvertisementModel extends Model<Advertisement> {
             p.setDouble(9, advertisement.getRate());
             p.setInt(10, advertisement.isSuspend() ? 1 : 0);
             p.setInt(11, advertisement.getId());
+
+            updateImages(advertisement.getPictures(), advertisement.getId());
+
             return p.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error connecting to DB update (AdvertisementModel)");
@@ -133,6 +136,15 @@ public class AdvertisementModel extends Model<Advertisement> {
     private void insertImages(List<Picture> pictures, int ad_id) throws SQLException {
         for(Picture picture : pictures){
             PreparedStatement p = conn.prepareStatement("INSERT into picture (path, advertisement_id) values (?,?);");
+            p.setString(1,picture.path);
+            p.setInt(2,ad_id);
+            p.executeUpdate();
+        }
+    }
+
+    private void updateImages(List<Picture> pictures, int ad_id) throws SQLException {
+        for(Picture picture : pictures){
+            PreparedStatement p = conn.prepareStatement("UPDATE picture SET path=? WHERE advertisement_id=?;");
             p.setString(1,picture.path);
             p.setInt(2,ad_id);
             p.executeUpdate();
