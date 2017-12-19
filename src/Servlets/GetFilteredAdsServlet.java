@@ -82,11 +82,13 @@ public class GetFilteredAdsServlet extends HttpServlet {
             int size_lower = size.get("lower_bound").getAsInt();
             query.append((query.length() == 0) ? "" : " and ");
             query.append("size" + " >= ").append(size_lower);
+            System.out.println(size.toString());
         }catch (Exception ignored){}
 
         try {
-            JsonObject size = filters_json.get("Size").getAsJsonObject();
+            JsonObject size = filters_json.get("size").getAsJsonObject();
             int size_upper = size.get("upper_bound").getAsInt();
+            System.out.println(size_upper);
             query.append((query.length() == 0) ? "" : " and ");
             query.append("Size" + " <= ").append(size_upper);
         }catch (Exception ignored){}

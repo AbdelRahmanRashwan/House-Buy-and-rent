@@ -33,6 +33,8 @@ function updateHTML(ad) {
     document.getElementById('area').setAttribute('value', ad['area']);
     document.getElementById('space').setAttribute('value', ad['size']);
     document.getElementById('floor').setAttribute('value', ad['floor']);
+    document.getElementById('lat').setAttribute('value', ad['latitude']);
+    document.getElementById('lng').setAttribute('value', ad['longitude']);
     var pictures_container = document.getElementById('photo_slideshow');
     for(var pic of ad['pictures']){
         var img = document.createElement('img');
