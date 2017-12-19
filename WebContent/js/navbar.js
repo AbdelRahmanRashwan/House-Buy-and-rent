@@ -5,7 +5,7 @@ $(document).ready(function () {
         // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
         $('#notifications').fadeToggle('fast', 'linear', function () {
             if ($('#notifications').is(':hidden')) {
-                $('#noti_Button').css('background-color', '#2E467C');
+                $('#noti_Button').css('background-color', '#a2a3a5');
             }
             else $('#noti_Button').css('background-color', '#FFF');        // CHANGE BACKGROUND COLOR OF THE BUTTON.
         });
@@ -22,7 +22,7 @@ $(document).ready(function () {
         // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
         if ($('#noti_Counter').is(':hidden')) {
             // CHANGE BACKGROUND COLOR OF THE BUTTON.
-            $('#noti_Button').css('background-color', '#2E467C');
+            $('#noti_Button').css('background-color', '#a2a3a5');
         }
     });
 

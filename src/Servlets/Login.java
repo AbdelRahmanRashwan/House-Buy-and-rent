@@ -21,8 +21,6 @@ public class Login extends HttpServlet {
         UserModel userModel = new UserModel();
         User user = userModel.selectByEmailAndPassword(request.getParameter("email")
                 , request.getParameter("password"));
-        
-//        User user = new User(1, "ahmed", "ahmed@hamada","01141118545","hamada st","sayed");
         if (user == null) {
         	AdminModel adminModel = new AdminModel();
         	Admin admin = adminModel.selectByUsernameAndPassword(request.getParameter("email"), request.getParameter("password"));

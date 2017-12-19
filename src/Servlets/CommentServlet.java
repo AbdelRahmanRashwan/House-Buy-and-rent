@@ -1,10 +1,8 @@
 package Servlets;
 
-import Entities.Comment;
 import Models.AdvertisementModel;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

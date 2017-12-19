@@ -1,0 +1,34 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+}
+
+#container{
+    width: 50%;
+    margin: 0 auto;
+    padding:30px;
+}
+
+.data{
+    margin: 20px;
+    font-size: 24px;
+}
+
+.submit{
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 auto 20px;
+    padding:10px;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    background-color:#3b3c3e;
+}
+
+.submit:hover{
+    cursor: hand;
+    border:solid 2px #3b3c3e;
+    background: #fff;
+    color: #3b3c3e;
+}
