@@ -84,6 +84,7 @@ function loadPicture(input) {
 
         reader.onload = function (e) {
             var img = document.getElementById('img');
+            window.alert(e.target);
             img.setAttribute('src',e.target.result);
         };
 
